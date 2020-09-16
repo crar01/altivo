@@ -9,16 +9,16 @@ using System.Text;
 using System.Windows.Forms;
 
 
-namespace Temporizador
+namespace Altivo
 {
-    public partial class frmPrincipal: Form
+    public partial class frmMain: Form
     {
         TaskbarManager _taskBar = TaskbarManager.Instance;
         bool _terminoTiempo = false;
         bool _swParpadear =true;
         int _tiempoTotal = 0;
         bool _corriendoTiempo = false;
-        public frmPrincipal()
+        public frmMain()
         {
             InitializeComponent();
         }
@@ -55,8 +55,8 @@ namespace Temporizador
         private void CalcularTiempoRestante()
         {
             this.Text = "Quedan " + ( ( pbTiempoPlanificado.Value ) / 60 ).ToString() + " mins";
-
         }
+
         private void tmrControlTiempo_Tick( object sender, EventArgs e )
         {
 

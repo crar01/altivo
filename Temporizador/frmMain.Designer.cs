@@ -1,6 +1,6 @@
-﻿namespace Temporizador
+﻿namespace Altivo
 {
-    partial class frmPrincipal
+    partial class frmMain
     {
         /// <summary>
         /// Variable del diseñador requerida.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pbTiempoPlanificado = new System.Windows.Forms.ProgressBar();
             this.tmrControlTiempo = new System.Windows.Forms.Timer(this.components);
             this.txtTiempoPlaneado = new System.Windows.Forms.TextBox();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Temporizador
+namespace Altivo
 {
     static class Program
     {
@@ -15,7 +15,7 @@ namespace Temporizador
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
-            Application.Run( new frmPrincipal() );
+            Application.Run( new frmMain() );
         }
     }
 }
