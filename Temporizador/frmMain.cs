@@ -55,7 +55,7 @@ namespace Altivo
 
         private void CalcTimeLeft()
         {
-            this.Text = "Quedan " + ( ( pbTiempoPlanificado.Value ) / 60 ).ToString() + " mins";
+            this.Text = string.Format("{0} min left", ((pbTiempoPlanificado.Value) / 60));
         }
 
         private void tmrControlTiempo_Tick( object sender, EventArgs e )
