@@ -27,25 +27,25 @@ namespace Altivo
             pbControl.BackgroundImage = Properties.Resources.play;
         }
 
-        private void getTime()
+        private void getEndTime()
         {
-            int minutos = 0;
-            string[] tiempo;
+            int minutes = 0;
+            string[] time;
 
             try
             {
-                tiempo = txtTiempoPlaneado.Text.Split(':');
-                minutos = Convert.ToInt32( tiempo[0]);
-                time.TotalTime = minutos * 60;
+                time = txtProgressTime.Text.Split(':');
+                minutes = Convert.ToInt32( time[0]);
+                this.time.TotalTime = minutes * 60;
 
-                if ( tiempo.Length == 2 )
+                if ( time.Length == 2 )
                 {
-                    time.TotalTime += Convert.ToInt32(tiempo[ 1 ]);
+                    this.time.TotalTime += Convert.ToInt32(time[ 1 ]);
                 }
 
-                lblTiempoFinal.Text = DateTime.Now.AddMinutes( minutos ).ToString( " HH : mm " );
-                pbTiempoPlanificado.Maximum = time.TotalTime;
-                pbTiempoPlanificado.Value = time.TotalTime;
+                lblEndTime.Text = DateTime.Now.AddMinutes( minutes ).ToString( " HH : mm " );
+                pbProgressTime.Maximum = this.time.TotalTime;
+                pbProgressTime.Value = this.time.TotalTime;
             }
             catch ( Exception )
             {
@@ -55,43 +55,7 @@ namespace Altivo
 
         private void CalcTimeLeft()
         {
-            this.Text = string.Format("{0} min left", ((pbTiempoPlanificado.Value) / 60));
-        }
-
-        private void tmrControlTiempo_Tick( object sender, EventArgs e )
-        {
-
-            if ( !time.IsTime )
-            {
-                _taskBar.SetProgressValue( pbTiempoPlanificado.Value--, time.TotalTime );
-                CalcTimeLeft();
-            }
-            else
-            {
-                if (time.IsFullTime )
-                    _taskBar.SetProgressValue( 0, 1 );
-                else
-                    _taskBar.SetProgressValue( 1, 1 );
-                time.IsFullTime = !time.IsFullTime;
-
-                if ( ckbSonido.Checked )
-                    Console.Beep();
-
-                pbControl.Visible = false;
-                btnDetener.Visible = true;
-                pbTiempoPlanificado.Value = 0;
-            }
-
-
-            if ( pbTiempoPlanificado.Value == 1 )
-                time.IsTime = true;
-
-            _taskBar.SetProgressState( TaskbarProgressBarState.Normal );
-        }
-
-        private void txtTiempoPlaneado_TextChanged( object sender, EventArgs e )
-        {
-            getTime();
+            this.Text = string.Format("{0} min left", ((pbProgressTime.Value) / 60));
         }
 
         private void btnControl_Click( object sender, EventArgs e )
@@ -99,27 +63,62 @@ namespace Altivo
 
             if ( !time.IsRunningTime )
             {
-                tmrControlTiempo.Start();
+                tmrTimeControl.Start();
                 pbControl.BackgroundImage = Properties.Resources.pause;
             }
             else
             {
-                tmrControlTiempo.Stop();
+                tmrTimeControl.Stop();
                 pbControl.BackgroundImage = Properties.Resources.play;
 
             }
             time.IsRunningTime = !time.IsRunningTime;
         }
 
-        private void btnDetener_Click( object sender, EventArgs e )
+        private void btnStop_Click(object sender, EventArgs e)
         {
-            tmrControlTiempo.Stop();
+            tmrTimeControl.Stop();
             pbControl.BackgroundImage = Properties.Resources.play;
             pbControl.Visible = true;
-            btnDetener.Visible = false;
+            btnStop.Visible = false;
             time.IsRunningTime = false;
             time.IsTime = false;
-            getTime();
+            getEndTime();
+        }
+
+        private void txtProgressTime_TextChanged(object sender, EventArgs e)
+        {
+            getEndTime();
+        }
+
+        private void tmrTimeControl_Tick(object sender, EventArgs e)
+        {
+            if (!time.IsTime)
+            {
+                _taskBar.SetProgressValue(pbProgressTime.Value--, time.TotalTime);
+                CalcTimeLeft();
+            }
+            else
+            {
+                if (time.IsFullTime)
+                    _taskBar.SetProgressValue(0, 1);
+                else
+                    _taskBar.SetProgressValue(1, 1);
+                time.IsFullTime = !time.IsFullTime;
+
+                if (ckbSound.Checked)
+                    Console.Beep();
+
+                pbControl.Visible = false;
+                btnStop.Visible = true;
+                pbProgressTime.Value = 0;
+            }
+
+
+            if (pbProgressTime.Value == 1)
+                time.IsTime = true;
+
+            _taskBar.SetProgressState(TaskbarProgressBarState.Normal);
         }
     }
 }
