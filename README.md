@@ -1,4 +1,4 @@
-# altivo
+# altivo ![GPL License](https://img.shields.io/badge/license-GPL-brightgreen.svg)
 A timer countdown simple and easy.
 
 # Features
