@@ -1,8 +1,8 @@
 # altivo ![GPL License](https://img.shields.io/badge/license-GPL-brightgreen.svg)
-A timer countdown simple and easy.
+A countdown timer simple and easy.
 
 # Features
-- Timer countdown
+- Countdown timer
 - Pomodoro technique
 - Show time left
 - Active sound
