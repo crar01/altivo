@@ -30,27 +30,34 @@ namespace Altivo
         private void getEndTime()
         {
             int minutes = 0;
-            string[] time;
+            string[] timeMinutesSeconda;
 
             try
             {
-                time = txtProgressTime.Text.Split(':');
-                minutes = Convert.ToInt32( time[0]);
-                this.time.TotalTime = minutes * 60;
+                timeMinutesSeconda = txtProgressTime.Text.Split(':');
+                minutes = Convert.ToInt32(timeMinutesSeconda[0]);
+                time.TotalTimeInSeconds = minutes * 60;
 
-                if ( time.Length == 2 )
+                bool isThereSeconds = timeMinutesSeconda.Length == 2;
+
+                if (isThereSeconds)
                 {
-                    this.time.TotalTime += Convert.ToInt32(time[ 1 ]);
+                    time.TotalTimeInSeconds += Convert.ToInt32(timeMinutesSeconda[1]);
                 }
 
-                lblEndTime.Text = DateTime.Now.AddMinutes( minutes ).ToString( " HH : mm " );
-                pbProgressTime.Maximum = this.time.TotalTime;
-                pbProgressTime.Value = this.time.TotalTime;
+                SetTimeLimit(minutes, time.TotalTimeInSeconds);
             }
             catch ( Exception )
             {
 
             }
+        }
+
+        private void SetTimeLimit(int minutes, int totalTimeInSeconds)
+        {
+            lblEndTime.Text = DateTime.Now.AddMinutes(minutes).ToString(" HH : mm ");
+            pbProgressTime.Maximum = totalTimeInSeconds;
+            pbProgressTime.Value = totalTimeInSeconds;
         }
 
         private void CalcTimeLeft()
@@ -60,6 +67,8 @@ namespace Altivo
 
         private void btnControl_Click( object sender, EventArgs e )
         {
+            if (pbProgressTime.Value == 0)
+                return;
 
             if ( !time.IsRunningTime )
             {
@@ -82,7 +91,7 @@ namespace Altivo
             pbControl.Visible = true;
             btnStop.Visible = false;
             time.IsRunningTime = false;
-            time.IsTime = false;
+            time.IsTimeUp = false;
             getEndTime();
         }
 
@@ -93,9 +102,9 @@ namespace Altivo
 
         private void tmrTimeControl_Tick(object sender, EventArgs e)
         {
-            if (!time.IsTime)
+            if (!time.IsTimeUp)
             {
-                _taskBar.SetProgressValue(pbProgressTime.Value--, time.TotalTime);
+                _taskBar.SetProgressValue(pbProgressTime.Value--, time.TotalTimeInSeconds);
                 CalcTimeLeft();
             }
             else
@@ -104,21 +113,29 @@ namespace Altivo
                     _taskBar.SetProgressValue(0, 1);
                 else
                     _taskBar.SetProgressValue(1, 1);
-                time.IsFullTime = !time.IsFullTime;
+                time.IsFullTime = !time.IsFullTime;         
 
-                if (ckbSound.Checked)
-                    Console.Beep();
-
-                pbControl.Visible = false;
-                btnStop.Visible = true;
-                pbProgressTime.Value = 0;
+                showComponentsWhenTimeUp();
             }
 
 
             if (pbProgressTime.Value == 1)
-                time.IsTime = true;
+                time.IsTimeUp = true;
 
             _taskBar.SetProgressState(TaskbarProgressBarState.Normal);
+        }
+
+        /// <summary>
+        /// Initialize the values to start again
+        /// </summary>
+        private void showComponentsWhenTimeUp()
+        {
+            if (ckbSound.Checked)
+                Console.Beep();
+
+            pbControl.Visible = false;
+            btnStop.Visible = true;
+            pbProgressTime.Value = 0;
         }
     }
 }

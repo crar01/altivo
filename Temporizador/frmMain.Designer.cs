@@ -63,7 +63,7 @@
             this.txtProgressTime.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtProgressTime.Location = new System.Drawing.Point(110, 16);
             this.txtProgressTime.Name = "txtProgressTime";
-            this.txtProgressTime.Size = new System.Drawing.Size(56, 35);
+            this.txtProgressTime.Size = new System.Drawing.Size(56, 26);
             this.txtProgressTime.TabIndex = 2;
             this.txtProgressTime.TextChanged += new System.EventHandler(this.txtProgressTime_TextChanged);
             // 
@@ -71,9 +71,9 @@
             // 
             this.lblEndTime.AutoSize = true;
             this.lblEndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEndTime.Location = new System.Drawing.Point(316, 21);
+            this.lblEndTime.Location = new System.Drawing.Point(209, 22);
             this.lblEndTime.Name = "lblEndTime";
-            this.lblEndTime.Size = new System.Drawing.Size(85, 25);
+            this.lblEndTime.Size = new System.Drawing.Size(64, 17);
             this.lblEndTime.TabIndex = 3;
             this.lblEndTime.Text = " 00 : 00";
             // 
@@ -81,9 +81,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(272, 21);
+            this.label1.Location = new System.Drawing.Point(171, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 29);
+            this.label1.Size = new System.Drawing.Size(38, 18);
             this.label1.TabIndex = 3;
             this.label1.Text = "End:";
             // 
@@ -93,21 +93,21 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(39, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 29);
+            this.label2.Size = new System.Drawing.Size(68, 18);
             this.label2.TabIndex = 3;
             this.label2.Text = "Minutes :";
             // 
             // btnStop
             // 
-            this.btnStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.btnStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.Color.Lavender;
-            this.btnStop.Location = new System.Drawing.Point(293, 82);
+            this.btnStop.Location = new System.Drawing.Point(360, 20);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(87, 25);
+            this.btnStop.Size = new System.Drawing.Size(59, 25);
             this.btnStop.TabIndex = 4;
             this.btnStop.Text = "Stop";
             this.btnStop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -121,15 +121,16 @@
             this.ckbSound.Checked = true;
             this.ckbSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbSound.Location = new System.Drawing.Point(42, 85);
+            this.ckbSound.Location = new System.Drawing.Point(284, 21);
             this.ckbSound.Name = "ckbSound";
-            this.ckbSound.Size = new System.Drawing.Size(109, 33);
+            this.ckbSound.Size = new System.Drawing.Size(70, 22);
             this.ckbSound.TabIndex = 6;
             this.ckbSound.Text = "Sound";
             this.ckbSound.UseVisualStyleBackColor = true;
             // 
             // pbControl
             // 
+            this.pbControl.BackColor = System.Drawing.Color.Transparent;
             this.pbControl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbControl.Location = new System.Drawing.Point(387, 47);
             this.pbControl.Name = "pbControl";
@@ -141,16 +142,16 @@
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(459, 122);
+            this.ClientSize = new System.Drawing.Size(459, 98);
+            this.Controls.Add(this.lblEndTime);
             this.Controls.Add(this.ckbSound);
             this.Controls.Add(this.pbControl);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblEndTime);
             this.Controls.Add(this.txtProgressTime);
             this.Controls.Add(this.pbProgressTime);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

@@ -7,16 +7,16 @@ namespace Altivo
 {
     public class Time
     {
-        public bool IsTime { get; set; }
+        public bool IsTimeUp { get; set; }
         public bool IsFullTime { get; set; }
-        public int TotalTime { get; set; }
+        public int TotalTimeInSeconds { get; set; }
         public bool IsRunningTime { get; set; }
 
         public Time()
         {
-            IsTime = false;
+            IsTimeUp = false;
             IsFullTime = true;
-            TotalTime = 0;
+            TotalTimeInSeconds = 0;
             IsRunningTime = false;
         }
     }
