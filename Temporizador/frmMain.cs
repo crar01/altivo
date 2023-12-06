@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 namespace Altivo
 {
-    public partial class frmMain: Form
+    public partial class frmMain : Form
     {
         TaskbarManager _taskBar = TaskbarManager.Instance;
         Time time = new Time();
 
         public frmMain()
-        {                  
+        {
             InitializeComponent();
         }
 
-        private void Form1_Load( object sender, EventArgs e )
+        private void Form1_Load(object sender, EventArgs e)
         {
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
             pbControl.BackgroundImage = Properties.Resources.play;
@@ -47,7 +47,7 @@ namespace Altivo
 
                 SetTimeLimit(minutes, time.TotalTimeInSeconds);
             }
-            catch ( Exception )
+            catch (Exception)
             {
 
             }
@@ -65,12 +65,12 @@ namespace Altivo
             this.Text = string.Format("{0} min left", ((pbProgressTime.Value) / 60));
         }
 
-        private void btnControl_Click( object sender, EventArgs e )
+        private void btnControl_Click(object sender, EventArgs e)
         {
             if (pbProgressTime.Value == 0)
                 return;
 
-            if ( !time.IsRunningTime )
+            if (!time.IsRunningTime)
             {
                 tmrTimeControl.Start();
                 pbControl.BackgroundImage = Properties.Resources.pause;
@@ -113,7 +113,7 @@ namespace Altivo
                     _taskBar.SetProgressValue(0, 1);
                 else
                     _taskBar.SetProgressValue(1, 1);
-                time.IsFullTime = !time.IsFullTime;         
+                time.IsFullTime = !time.IsFullTime;
 
                 showComponentsWhenTimeUp();
             }
@@ -136,6 +136,14 @@ namespace Altivo
             pbControl.Visible = false;
             btnStop.Visible = true;
             pbProgressTime.Value = 0;
+        }
+
+        private void txtProgressTime_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -62,10 +62,12 @@
             this.txtProgressTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProgressTime.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtProgressTime.Location = new System.Drawing.Point(110, 16);
+            this.txtProgressTime.MaxLength = 4;
             this.txtProgressTime.Name = "txtProgressTime";
             this.txtProgressTime.Size = new System.Drawing.Size(56, 26);
             this.txtProgressTime.TabIndex = 2;
             this.txtProgressTime.TextChanged += new System.EventHandler(this.txtProgressTime_TextChanged);
+            this.txtProgressTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProgressTime_KeyPress);
             // 
             // lblEndTime
             // 
