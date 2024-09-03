@@ -11,6 +11,7 @@ namespace Altivo
         public bool IsFullTime { get; set; }
         public int TotalTimeInSeconds { get; set; }
         public bool IsRunningTime { get; set; }
+        public bool IsPaused { get; set; }
 
         public Time()
         {
@@ -18,6 +19,7 @@ namespace Altivo
             IsFullTime = true;
             TotalTimeInSeconds = 0;
             IsRunningTime = false;
+            IsPaused = false;
         }
     }
 }

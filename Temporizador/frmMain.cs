@@ -49,8 +49,13 @@ namespace Altivo
             }
             catch (Exception)
             {
-
+                
             }
+        }
+
+        private void SetDefaultTimeIfEmpty()
+        {
+            txtProgressTime.Text = string.IsNullOrEmpty(txtProgressTime.Text) ? "25" : txtProgressTime.Text;
         }
 
         private void SetTimeLimit(int minutes, int totalTimeInSeconds)
@@ -67,20 +72,27 @@ namespace Altivo
 
         private void btnControl_Click(object sender, EventArgs e)
         {
-            if (pbProgressTime.Value == 0)
-                return;
-
-            if (!time.IsRunningTime)
+            if(string.IsNullOrEmpty(txtProgressTime.Text))
             {
-                tmrTimeControl.Start();
-                pbControl.BackgroundImage = Properties.Resources.pause;
+                SetDefaultTimeIfEmpty();
+                getEndTime();
+            }
+
+            if (time.IsRunningTime)
+            {
+                tmrTimeControl.Stop();
+                time.IsPaused = true;
+                pbControl.BackgroundImage = Properties.Resources.play;
+                txtProgressTime.Enabled = true;
             }
             else
             {
-                tmrTimeControl.Stop();
-                pbControl.BackgroundImage = Properties.Resources.play;
-
+                tmrTimeControl.Start();
+                time.IsPaused = false;
+                txtProgressTime.Enabled = false;
+                pbControl.BackgroundImage = Properties.Resources.pause;
             }
+
             time.IsRunningTime = !time.IsRunningTime;
         }
 
@@ -97,7 +109,7 @@ namespace Altivo
 
         private void txtProgressTime_TextChanged(object sender, EventArgs e)
         {
-            getEndTime();
+            //getEndTime();
         }
 
         private void tmrTimeControl_Tick(object sender, EventArgs e)
@@ -144,6 +156,12 @@ namespace Altivo
             {
                 e.Handled = true;
             }
+
+        }
+
+        private void txtProgressTime_KeyUp(object sender, KeyEventArgs e)
+        {
+            getEndTime();
         }
     }
 }

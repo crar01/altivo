@@ -68,6 +68,7 @@
             this.txtProgressTime.TabIndex = 2;
             this.txtProgressTime.TextChanged += new System.EventHandler(this.txtProgressTime_TextChanged);
             this.txtProgressTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProgressTime_KeyPress);
+            this.txtProgressTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtProgressTime_KeyUp);
             // 
             // lblEndTime
             // 
