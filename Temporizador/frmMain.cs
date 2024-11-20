@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAPICodePack.Taskbar;
+﻿using Altivo.Models;
+using Altivo.Services;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -13,8 +16,10 @@ namespace Altivo
 {
     public partial class frmMain : Form
     {
+        int _concentrationSessionId = 0;
         TaskbarManager _taskBar = TaskbarManager.Instance;
         Time time = new Time();
+        ConcentrationService concentrationService = new ConcentrationService();
 
         public frmMain()
         {
@@ -91,6 +96,8 @@ namespace Altivo
                 time.IsPaused = false;
                 txtProgressTime.Enabled = false;
                 pbControl.BackgroundImage = Properties.Resources.pause;
+
+                InitDataSession();
             }
 
             time.IsRunningTime = !time.IsRunningTime;
@@ -99,6 +106,9 @@ namespace Altivo
         private void btnStop_Click(object sender, EventArgs e)
         {
             tmrTimeControl.Stop();
+            concentrationService.EndCompletedSession(_concentrationSessionId, ConcentrationLevel.High);
+            ResetDataSession();
+
             pbControl.BackgroundImage = Properties.Resources.play;
             pbControl.Visible = true;
             btnStop.Visible = false;
@@ -162,6 +172,19 @@ namespace Altivo
         private void txtProgressTime_KeyUp(object sender, KeyEventArgs e)
         {
             getEndTime();
+        }
+
+        private void ResetDataSession()
+        {
+            _concentrationSessionId = 0;
+        }
+
+        private void InitDataSession()
+        {
+            if (_concentrationSessionId == 0)
+            {
+                _concentrationSessionId = concentrationService.StartSession(25);
+            }
         }
     }
 }

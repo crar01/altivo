@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Altivo.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Altivo
@@ -13,6 +15,8 @@ namespace Altivo
         [STAThread]
         static void Main()
         {
+            DatabaseInitializer.InitializeAsync();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new frmMain() );
