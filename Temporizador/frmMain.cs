@@ -1,4 +1,5 @@
-﻿using Altivo.Models;
+﻿using Altivo.Dtos;
+using Altivo.Models;
 using Altivo.Services;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
@@ -20,6 +21,8 @@ namespace Altivo
         TaskbarManager _taskBar = TaskbarManager.Instance;
         Time time = new Time();
         ConcentrationService concentrationService = new ConcentrationService();
+        MotivationService motivationService = new MotivationService();
+        List<SessionWeekDto> sessionsWeek = new List<SessionWeekDto>();
 
         public frmMain()
         {
@@ -30,6 +33,9 @@ namespace Altivo
         {
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
             pbControl.BackgroundImage = Properties.Resources.play;
+
+            GetCompletedSessionsThisWeek();
+            UpdateMetrics();
         }
 
         private void getEndTime()
@@ -107,7 +113,10 @@ namespace Altivo
         {
             tmrTimeControl.Stop();
             concentrationService.EndCompletedSession(_concentrationSessionId, ConcentrationLevel.High);
+            
+            GetCompletedSessionsThisWeek();
             ResetDataSession();
+            UpdateMetrics();
 
             pbControl.BackgroundImage = Properties.Resources.play;
             pbControl.Visible = true;
@@ -185,6 +194,33 @@ namespace Altivo
             {
                 _concentrationSessionId = concentrationService.StartSession(25);
             }
+        }
+
+        private void GetCompletedSessionsThisWeek()
+        {
+            sessionsWeek = motivationService.GetCompletedPomodorosThisWeek();
+        }
+
+        private void UpdateMetrics()
+        {
+            string formattedText = string.Join(" ", sessionsWeek.Select(v => v.Completed.ToString().PadRight(3)));
+            lblWeekDays.Text = formattedText;
+
+            int maxValue = sessionsWeek.Max(s => s.Completed);
+            int barWidth = 10;
+
+            string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
+            {
+                int barLength = (int)((double)v.Completed / maxValue * barWidth);
+                return new string('█', barLength) + " " + (v.Completed == 0 ? string.Empty : v.Completed.ToString());
+            }));
+
+            lblBar.Text = graphWithLabels;
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DatabaseInitializer.Dispose();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Altivo.Models
         public ConcentrationState State { get; set; } = ConcentrationState.InProgress;
         public ConcentrationLevel ConcentrationLevel { get; set; } = ConcentrationLevel.None;
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
     }
 
     public enum ConcentrationState

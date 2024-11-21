@@ -37,5 +37,14 @@ namespace Altivo.Services
 
             return _connection;
         }
+
+        public static void Dispose()
+        {
+            if(_connection != null)
+            {
+                _connection.Close();
+            }
+
+        }
     }
 }
