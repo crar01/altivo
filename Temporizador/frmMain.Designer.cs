@@ -43,6 +43,8 @@
             this.lblWeekDays = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblBar = new System.Windows.Forms.Label();
+            this.lblLevelPoint = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,12 +199,36 @@
             this.lblBar.Text = "0";
             this.lblBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblLevelPoint
+            // 
+            this.lblLevelPoint.AutoSize = true;
+            this.lblLevelPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLevelPoint.ForeColor = System.Drawing.Color.LightGreen;
+            this.lblLevelPoint.Location = new System.Drawing.Point(314, 175);
+            this.lblLevelPoint.Name = "lblLevelPoint";
+            this.lblLevelPoint.Size = new System.Drawing.Size(26, 25);
+            this.lblLevelPoint.TabIndex = 11;
+            this.lblLevelPoint.Text = "●";
+            this.lblLevelPoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.DarkGray;
+            this.label6.Location = new System.Drawing.Point(332, 181);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 17);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "High";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(406, 205);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblLevelPoint);
             this.Controls.Add(this.lblBar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblWeekDays);
@@ -246,6 +272,8 @@
         private System.Windows.Forms.Label lblWeekDays;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblBar;
+        private System.Windows.Forms.Label lblLevelPoint;
+        private System.Windows.Forms.Label label6;
     }
 }
 

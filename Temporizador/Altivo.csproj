@@ -66,6 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\SessionWeekDto.cs" />
+    <Compile Include="Forms\FrmConcentrationRate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmConcentrationRate.Designer.cs">
+      <DependentUpon>FrmConcentrationRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Theme.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +86,9 @@
     <Compile Include="Services\ConcentrationService.cs" />
     <Compile Include="Services\MotivationService.cs" />
     <Compile Include="Time.cs" />
+    <EmbeddedResource Include="Forms\FrmConcentrationRate.resx">
+      <DependentUpon>FrmConcentrationRate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

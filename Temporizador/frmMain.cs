@@ -1,4 +1,5 @@
 ﻿using Altivo.Dtos;
+using Altivo.Forms;
 using Altivo.Models;
 using Altivo.Services;
 using Microsoft.WindowsAPICodePack.Taskbar;
@@ -112,9 +113,8 @@ namespace Altivo
         private void btnStop_Click(object sender, EventArgs e)
         {
             tmrTimeControl.Stop();
-            concentrationService.EndCompletedSession(_concentrationSessionId, ConcentrationLevel.High);
             
-            GetCompletedSessionsThisWeek();
+            SaveEndSession();
             ResetDataSession();
             UpdateMetrics();
 
@@ -123,7 +123,19 @@ namespace Altivo
             btnStop.Visible = false;
             time.IsRunningTime = false;
             time.IsTimeUp = false;
+            txtProgressTime.Enabled = true;
+
             getEndTime();
+        }
+
+        /// <summary>
+        /// Save the end session when stop is clicked
+        /// </summary>
+        private void SaveEndSession()
+        {
+            var frmConcentrationRate = new FrmConcentrationRate();
+            frmConcentrationRate.ShowDialog();
+            concentrationService.EndCompletedSession(_concentrationSessionId, frmConcentrationRate.concentrationLevel);
         }
 
         private void txtProgressTime_TextChanged(object sender, EventArgs e)
@@ -203,6 +215,8 @@ namespace Altivo
 
         private void UpdateMetrics()
         {
+            GetCompletedSessionsThisWeek();
+
             string formattedText = string.Join(" ", sessionsWeek.Select(v => v.Completed.ToString().PadRight(3)));
             lblWeekDays.Text = formattedText;
 
