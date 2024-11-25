@@ -2,6 +2,7 @@
 using Altivo.Forms;
 using Altivo.Models;
 using Altivo.Services;
+using Altivo.Shared;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Altivo
     public partial class frmMain : Form
     {
         int _concentrationSessionId = 0;
+        int _minutes = 0;
+
         TaskbarManager _taskBar = TaskbarManager.Instance;
         Time time = new Time();
         ConcentrationService concentrationService = new ConcentrationService();
@@ -57,7 +60,8 @@ namespace Altivo
                     time.TotalTimeInSeconds += Convert.ToInt32(timeMinutesSeconda[1]);
                 }
 
-                SetTimeLimit(minutes, time.TotalTimeInSeconds);
+                _minutes = minutes;
+                SetTimeLimit();
             }
             catch (Exception)
             {
@@ -70,11 +74,11 @@ namespace Altivo
             txtProgressTime.Text = string.IsNullOrEmpty(txtProgressTime.Text) ? "25" : txtProgressTime.Text;
         }
 
-        private void SetTimeLimit(int minutes, int totalTimeInSeconds)
+        private void SetTimeLimit()
         {
-            lblEndTime.Text = DateTime.Now.AddMinutes(minutes).ToString(" HH : mm ");
-            pbProgressTime.Maximum = totalTimeInSeconds;
-            pbProgressTime.Value = totalTimeInSeconds;
+            lblEndTime.Text = DateTime.Now.AddMinutes(_minutes).ToString(" HH : mm ");
+            pbProgressTime.Maximum = _minutes * 60;
+            pbProgressTime.Value = _minutes * 60;
         }
 
         private void CalcTimeLeft()
@@ -104,7 +108,7 @@ namespace Altivo
                 txtProgressTime.Enabled = false;
                 pbControl.BackgroundImage = Properties.Resources.pause;
 
-                InitDataSession();
+                InitConcentrationSession();
             }
 
             time.IsRunningTime = !time.IsRunningTime;
@@ -200,11 +204,11 @@ namespace Altivo
             _concentrationSessionId = 0;
         }
 
-        private void InitDataSession()
+        private void InitConcentrationSession()
         {
             if (_concentrationSessionId == 0)
             {
-                _concentrationSessionId = concentrationService.StartSession(25);
+                _concentrationSessionId = concentrationService.StartSession(_minutes);
             }
         }
 
@@ -220,13 +224,18 @@ namespace Altivo
             string formattedText = string.Join(" ", sessionsWeek.Select(v => v.Completed.ToString().PadRight(3)));
             lblWeekDays.Text = formattedText;
 
+            if (!sessionsWeek.Any())
+                return;
+
             int maxValue = sessionsWeek.Max(s => s.Completed);
             int barWidth = 10;
 
             string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
             {
                 int barLength = (int)((double)v.Completed / maxValue * barWidth);
-                return new string('█', barLength) + " " + (v.Completed == 0 ? string.Empty : v.Completed.ToString());
+                return new string('█', barLength) + " " + (v.Completed == 0 ? 
+                string.Empty : 
+                v.Completed.ToString() + " " + Utilities.TotalTime(v.TotalMinutes));
             }));
 
             lblBar.Text = graphWithLabels;

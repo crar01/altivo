@@ -10,5 +10,6 @@ namespace Altivo.Dtos
     {
         public DateTime Date;
         public int Completed;
+        public int TotalMinutes;
     }
 }

@@ -112,13 +112,13 @@
             this.btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStop.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.Color.Lavender;
             this.btnStop.Location = new System.Drawing.Point(333, 18);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(59, 25);
             this.btnStop.TabIndex = 4;
-            this.btnStop.Text = "Stop";
+            this.btnStop.Text = "Finish";
             this.btnStop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Visible = false;
@@ -210,6 +210,7 @@
             this.lblLevelPoint.TabIndex = 11;
             this.lblLevelPoint.Text = "●";
             this.lblLevelPoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLevelPoint.Visible = false;
             // 
             // label6
             // 
@@ -220,6 +221,7 @@
             this.label6.Size = new System.Drawing.Size(37, 17);
             this.label6.TabIndex = 12;
             this.label6.Text = "High";
+            this.label6.Visible = false;
             // 
             // frmMain
             // 

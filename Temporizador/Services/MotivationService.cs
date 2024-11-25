@@ -31,7 +31,8 @@ namespace Altivo.Services
                         )
                         SELECT 
                             dr.dateWeek AS dateWeek,
-                            IFNULL(COUNT(cs.Id), 0) AS Completed
+                            IFNULL(COUNT(cs.Id), 0) AS Completed,
+                            IFNULL(SUM(cs.DurationInMinutes), 0) AS TotalMinutes
                         FROM 
                             DateRange dr
                         LEFT JOIN 
@@ -44,12 +45,18 @@ namespace Altivo.Services
                             dr.dateWeek;
                     ";
 
-                var res = _connection.Query<(string dateWeek, int completed)>(query);
-                var resList = res.Select(r => new SessionWeekDto
-                { Date = DateTime.Parse(r.dateWeek), Completed = r.completed })
-                    .ToList();
+                var res = _connection.Query<(string dateWeek, int completed, int totalMinutes)>(query);
+                var resList = res.Select(r => new SessionWeekDto { 
+                    Date = DateTime.Parse(r.dateWeek), 
+                    Completed = r.completed,
+                    TotalMinutes = r.totalMinutes
+                }).ToList();
 
-                resList.RemoveAt(7); // remove last day of the week next monday
+                if (resList.Count == 8)
+                {
+                    resList.RemoveAt(7); // remove last day of the week next monday
+                }
+
                 return resList;
             }
             catch (Exception ex)

@@ -13,7 +13,7 @@ namespace Altivo.Models
         public int Id { get; set; }
         public string TaskName { get; set; }
         public int DurationInMinutes { get; set; }
-        public ConcentrationState State { get; set; } = ConcentrationState.InProgress;
+        public ConcentrationState State { get; set; } = ConcentrationState.Interrupted;
         public ConcentrationLevel ConcentrationLevel { get; set; } = ConcentrationLevel.None;
 
         public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

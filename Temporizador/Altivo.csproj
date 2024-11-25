@@ -85,6 +85,7 @@
     <Compile Include="Services\DatabaseInitializer.cs" />
     <Compile Include="Services\ConcentrationService.cs" />
     <Compile Include="Services\MotivationService.cs" />
+    <Compile Include="Shared\Utilities.cs" />
     <Compile Include="Time.cs" />
     <EmbeddedResource Include="Forms\FrmConcentrationRate.resx">
       <DependentUpon>FrmConcentrationRate.cs</DependentUpon>
