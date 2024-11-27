@@ -83,7 +83,12 @@ namespace Altivo
 
         private void CalcTimeLeft()
         {
-            this.Text = string.Format("{0} min left", ((pbProgressTime.Value) / 60));
+            this.Text = string.Format("{0} min left", GetLeftTimeMinutes());
+        }
+
+        private int GetLeftTimeMinutes()
+        {
+            return pbProgressTime.Value / 60;
         }
 
         private void btnControl_Click(object sender, EventArgs e)
