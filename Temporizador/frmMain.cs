@@ -229,7 +229,7 @@ namespace Altivo
             string formattedText = string.Join(" ", sessionsWeek.Select(v => v.Completed.ToString().PadRight(3)));
             lblWeekDays.Text = formattedText;
 
-            if (!sessionsWeek.Any())
+            if (!sessionsWeek.Any(sw => sw.TotalMinutes > 0))
                 return;
 
             int maxValue = sessionsWeek.Max(s => s.Completed);
@@ -238,9 +238,10 @@ namespace Altivo
             string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
             {
                 int barLength = (int)((double)v.Completed / maxValue * barWidth);
-                return new string('█', barLength) + " " + (v.Completed == 0 ? 
-                string.Empty : 
-                v.Completed.ToString() + " " + Utilities.TotalTime(v.TotalMinutes));
+
+                return new string('█', barLength) + " " + (v.Completed == 0 ?
+                    string.Empty :
+                    v.Completed.ToString() + " " + Utilities.TotalTime(v.TotalMinutes));             
             }));
 
             lblBar.Text = graphWithLabels;

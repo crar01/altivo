@@ -194,9 +194,9 @@
             this.lblBar.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.lblBar.Location = new System.Drawing.Point(28, 86);
             this.lblBar.Name = "lblBar";
-            this.lblBar.Size = new System.Drawing.Size(14, 15);
+            this.lblBar.Size = new System.Drawing.Size(77, 15);
             this.lblBar.TabIndex = 10;
-            this.lblBar.Text = "0";
+            this.lblBar.Text = "Hi Padawan";
             this.lblBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblLevelPoint
