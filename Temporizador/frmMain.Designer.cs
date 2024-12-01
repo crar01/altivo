@@ -45,6 +45,7 @@
             this.lblBar = new System.Windows.Forms.Label();
             this.lblLevelPoint = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.lblTotalMinutesWeek = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -223,12 +224,24 @@
             this.label6.Text = "High";
             this.label6.Visible = false;
             // 
+            // lblTotalMinutesWeek
+            // 
+            this.lblTotalMinutesWeek.AutoSize = true;
+            this.lblTotalMinutesWeek.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.lblTotalMinutesWeek.ForeColor = System.Drawing.Color.DarkGray;
+            this.lblTotalMinutesWeek.Location = new System.Drawing.Point(28, 203);
+            this.lblTotalMinutesWeek.Name = "lblTotalMinutesWeek";
+            this.lblTotalMinutesWeek.Size = new System.Drawing.Size(70, 15);
+            this.lblTotalMinutesWeek.TabIndex = 13;
+            this.lblTotalMinutesWeek.Text = "Total: 0m";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(406, 205);
+            this.ClientSize = new System.Drawing.Size(406, 227);
+            this.Controls.Add(this.lblTotalMinutesWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevelPoint);
             this.Controls.Add(this.lblBar);
@@ -276,6 +289,7 @@
         private System.Windows.Forms.Label lblBar;
         private System.Windows.Forms.Label lblLevelPoint;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblTotalMinutesWeek;
     }
 }
 

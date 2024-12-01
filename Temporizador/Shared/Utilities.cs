@@ -8,6 +8,11 @@ namespace Altivo.Shared
 {
     public class Utilities
     {
+        /// <summary>
+        /// Converts minutes to hours and minutes with the format "xh ym"
+        /// </summary>
+        /// <param name="minutes"></param>
+        /// <returns></returns>
         public static string TotalTime(int minutes) 
         {
             int hours = minutes / 60;

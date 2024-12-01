@@ -234,6 +234,7 @@ namespace Altivo
 
             int maxValue = sessionsWeek.Max(s => s.TotalMinutes);
             int barWidth = 10;
+            int totalMinutesWeek = sessionsWeek.Sum(d => d.TotalMinutes);
 
             string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
             {
@@ -245,6 +246,7 @@ namespace Altivo
             }));
 
             lblBar.Text = graphWithLabels;
+            lblTotalMinutesWeek.Text = "Total: " + Utilities.TotalTime(totalMinutesWeek);
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
