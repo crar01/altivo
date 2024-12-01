@@ -191,7 +191,7 @@
             // 
             this.lblBar.AutoSize = true;
             this.lblBar.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBar.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.lblBar.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.lblBar.Location = new System.Drawing.Point(28, 86);
             this.lblBar.Name = "lblBar";
             this.lblBar.Size = new System.Drawing.Size(77, 15);

@@ -226,22 +226,22 @@ namespace Altivo
         {
             GetCompletedSessionsThisWeek();
 
-            string formattedText = string.Join(" ", sessionsWeek.Select(v => v.Completed.ToString().PadRight(3)));
+            string formattedText = string.Join(" ", sessionsWeek.Select(v => v.TotalMinutes.ToString().PadRight(3)));
             lblWeekDays.Text = formattedText;
 
             if (!sessionsWeek.Any(sw => sw.TotalMinutes > 0))
                 return;
 
-            int maxValue = sessionsWeek.Max(s => s.Completed);
+            int maxValue = sessionsWeek.Max(s => s.TotalMinutes);
             int barWidth = 10;
 
             string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
             {
-                int barLength = (int)((double)v.Completed / maxValue * barWidth);
+                int barLength = (int)((double)v.TotalMinutes / maxValue * barWidth);
 
-                return new string('█', barLength) + " " + (v.Completed == 0 ?
+                return new string('█', barLength) + " " + (v.TotalMinutes == 0 ?
                     string.Empty :
-                    v.Completed.ToString() + " " + Utilities.TotalTime(v.TotalMinutes));             
+                    Utilities.TotalTime(v.TotalMinutes) + " " + v.Completed.ToString() + "c");             
             }));
 
             lblBar.Text = graphWithLabels;
