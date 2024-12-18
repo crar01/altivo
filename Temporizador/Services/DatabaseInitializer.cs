@@ -24,7 +24,10 @@ namespace Altivo.Services
             if (_connection == null)
             {
                 _connection = new SQLiteConnection(_dbPath);
+                _connection.CreateTable<Activity>();
                 _connection.CreateTable<ConcentrationSession>();
+
+                SeedService.SeedDatabase(_connection);
             }
         }
 
@@ -40,11 +43,11 @@ namespace Altivo.Services
 
         public static void Dispose()
         {
-            if(_connection != null)
+            if (_connection != null)
             {
                 _connection.Close();
             }
 
-        }
+        }        
     }
 }

@@ -26,7 +26,10 @@ namespace Altivo.Services
         {
             try
             {
-                var session = new ConcentrationSession { TaskName = "Task1", DurationInMinutes = durationInMinutes };
+                var session = new ConcentrationSession { 
+                    TaskName = "Task1", 
+                    DurationInMinutes = durationInMinutes, 
+                    ActivityId =  Seed.DefaultActivity.Id};
                 
                 _connection.Insert(session);
                 return session.Id;

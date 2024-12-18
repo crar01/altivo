@@ -17,6 +17,9 @@ namespace Altivo.Models
         public ConcentrationLevel ConcentrationLevel { get; set; } = ConcentrationLevel.None;
 
         public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        // add a key from activity like foreign key
+        public Guid ActivityId { get; set; }
     }
 
     public enum ConcentrationState
