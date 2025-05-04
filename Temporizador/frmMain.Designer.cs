@@ -179,11 +179,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.DarkGray;
             this.label4.Location = new System.Drawing.Point(12, 86);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(14, 105);
+            this.label4.Size = new System.Drawing.Size(16, 126);
             this.label4.TabIndex = 9;
             this.label4.Text = "M\r\nT\r\nW\r\nT\r\nF\r\nS\r\nS";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,11 +191,11 @@
             // lblBar
             // 
             this.lblBar.AutoSize = true;
-            this.lblBar.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBar.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBar.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.lblBar.Location = new System.Drawing.Point(28, 86);
             this.lblBar.Name = "lblBar";
-            this.lblBar.Size = new System.Drawing.Size(77, 15);
+            this.lblBar.Size = new System.Drawing.Size(88, 18);
             this.lblBar.TabIndex = 10;
             this.lblBar.Text = "Hi Padawan";
             this.lblBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -227,11 +227,11 @@
             // lblTotalMinutesWeek
             // 
             this.lblTotalMinutesWeek.AutoSize = true;
-            this.lblTotalMinutesWeek.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.lblTotalMinutesWeek.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalMinutesWeek.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblTotalMinutesWeek.Location = new System.Drawing.Point(28, 203);
+            this.lblTotalMinutesWeek.Location = new System.Drawing.Point(28, 213);
             this.lblTotalMinutesWeek.Name = "lblTotalMinutesWeek";
-            this.lblTotalMinutesWeek.Size = new System.Drawing.Size(70, 15);
+            this.lblTotalMinutesWeek.Size = new System.Drawing.Size(80, 18);
             this.lblTotalMinutesWeek.TabIndex = 13;
             this.lblTotalMinutesWeek.Text = "Total: 0m";
             // 
@@ -240,7 +240,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(406, 227);
+            this.ClientSize = new System.Drawing.Size(406, 240);
             this.Controls.Add(this.lblTotalMinutesWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevelPoint);

@@ -233,7 +233,7 @@ namespace Altivo
                 return;
 
             int maxValue = sessionsWeek.Max(s => s.TotalMinutes);
-            int barWidth = 10;
+            int barWidth = 30;
             int totalMinutesWeek = sessionsWeek.Sum(d => d.TotalMinutes);
 
             string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
