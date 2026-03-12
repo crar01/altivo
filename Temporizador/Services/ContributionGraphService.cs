@@ -16,7 +16,7 @@ namespace Altivo.Services
         }
 
         /// <summary>
-        /// Obtiene las sesiones completadas de los últimos 365 días
+        /// get all completed sessions for last 365 days, grouped by day, with count of sessions and total minutes
         /// </summary>
         public List<DayContributionDto> GetYearContributions()
         {
@@ -64,7 +64,7 @@ namespace Altivo.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener contribuciones del año: {ex.Message}");
+                Console.WriteLine($"Error getting data of year: {ex.Message}");
                 return new List<DayContributionDto>();
             }
         }

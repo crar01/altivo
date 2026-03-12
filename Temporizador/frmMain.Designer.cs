@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.pbProgressTime = new System.Windows.Forms.ProgressBar();
+            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
             this.tmrTimeControl = new System.Windows.Forms.Timer(this.components);
             this.txtProgressTime = new System.Windows.Forms.TextBox();
             this.lblEndTime = new System.Windows.Forms.Label();
@@ -49,11 +49,21 @@
             // 
             // pbProgressTime
             // 
+            this.pbProgressTime.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.pbProgressTime.CornerRadius = 4;
             this.pbProgressTime.Location = new System.Drawing.Point(15, 50);
             this.pbProgressTime.Margin = new System.Windows.Forms.Padding(4);
+            this.pbProgressTime.Maximum = 100;
+            this.pbProgressTime.Minimum = 0;
+            this.pbProgressTime.MinimumSize = new System.Drawing.Size(50, 20);
             this.pbProgressTime.Name = "pbProgressTime";
-            this.pbProgressTime.Size = new System.Drawing.Size(338, 23);
+            this.pbProgressTime.PercentageFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.pbProgressTime.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(151)))), ((int)(((byte)(105)))));
+            this.pbProgressTime.ShowPercentage = false;
+            this.pbProgressTime.Size = new System.Drawing.Size(338, 27);
             this.pbProgressTime.TabIndex = 0;
+            this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
+            this.pbProgressTime.Value = 0;
             // 
             // tmrTimeControl
             // 
@@ -246,7 +256,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar pbProgressTime;
+        private Controls.ModernProgressBar pbProgressTime;
         private System.Windows.Forms.Timer tmrTimeControl;
         private System.Windows.Forms.TextBox txtProgressTime;
         private System.Windows.Forms.Label lblEndTime;

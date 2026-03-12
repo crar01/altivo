@@ -68,6 +68,9 @@
     <Compile Include="Controls\ContributionGraphControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\ModernProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Dtos\DayContributionDto.cs" />
     <Compile Include="Dtos\SessionWeekDto.cs" />
     <Compile Include="Forms\FrmConcentrationRate.cs">

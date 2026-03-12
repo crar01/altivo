@@ -28,7 +28,9 @@ namespace Altivo.Controls
             Color.FromArgb(0, 109, 50),
             Color.FromArgb(38, 166, 91),
             Color.FromArgb(57, 211, 83),
-            Color.FromArgb(87, 242, 135)
+            Color.FromArgb(87, 242, 135),
+            Color.FromArgb(120, 255, 160),
+            Color.FromArgb(160, 255, 190)
         };
 
         public ContributionGraphControl()
@@ -208,19 +210,19 @@ namespace Altivo.Controls
             Font font = new Font("Segoe UI", 7);
             Brush textBrush = new SolidBrush(Color.FromArgb(180, 180, 180));
 
-            int startX = this.Width - 150;
+            int startX = this.Width - 180;
             int startY = this.Height - 18;
 
             g.DrawString("Less", font, textBrush, startX, startY);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 7; i++)
             {
                 int x = startX + 35 + (i * (CellSize + 2));
                 Rectangle rect = new Rectangle(x, startY, CellSize, CellSize);
                 DrawRoundedRectangle(g, rect, CornerRadius, _intensityColors[i], Color.FromArgb(60, 60, 60));
             }
 
-            g.DrawString("More", font, textBrush, startX + 110, startY);
+            g.DrawString("More", font, textBrush, startX + 134, startY);
             
             textBrush.Dispose();
         }
@@ -231,10 +233,12 @@ namespace Altivo.Controls
 
             double percentage = (double)totalMinutes / maxMinutes;
 
-            if (percentage <= 0.25) return _intensityColors[1];
-            if (percentage <= 0.50) return _intensityColors[2];
-            if (percentage <= 0.75) return _intensityColors[3];
-            return _intensityColors[4];
+            if (percentage <= 0.16) return _intensityColors[1];
+            if (percentage <= 0.33) return _intensityColors[2];
+            if (percentage <= 0.50) return _intensityColors[3];
+            if (percentage <= 0.66) return _intensityColors[4];
+            if (percentage <= 0.83) return _intensityColors[5];
+            return _intensityColors[6];
         }
 
         private int GetStartDayIndex()
