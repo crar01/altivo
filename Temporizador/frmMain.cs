@@ -3,6 +3,7 @@ using Altivo.Forms;
 using Altivo.Models;
 using Altivo.Services;
 using Altivo.Shared;
+using Altivo.Controls;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,9 @@ namespace Altivo
         Time time = new Time();
         ConcentrationService concentrationService = new ConcentrationService();
         MotivationService motivationService = new MotivationService();
+        ContributionGraphService contributionGraphService = new ContributionGraphService();
         List<SessionWeekDto> sessionsWeek = new List<SessionWeekDto>();
+        ContributionGraphControl contributionGraph;
 
         public frmMain()
         {
@@ -40,6 +43,7 @@ namespace Altivo
 
             GetCompletedSessionsThisWeek();
             UpdateMetrics();
+            LoadContributionGraph();
         }
 
         private void getEndTime()
@@ -126,6 +130,7 @@ namespace Altivo
             SaveEndSession();
             ResetDataSession();
             UpdateMetrics();
+            LoadContributionGraph();
 
             pbControl.BackgroundImage = Properties.Resources.play;
             pbControl.Visible = true;
@@ -233,20 +238,23 @@ namespace Altivo
                 return;
 
             int maxValue = sessionsWeek.Max(s => s.TotalMinutes);
-            int barWidth = 30;
-            int totalMinutesWeek = sessionsWeek.Sum(d => d.TotalMinutes);
+            int totalMinutesWeek = sessionsWeek.Sum(d => d.TotalMinutes);            
 
-            string graphWithLabels = string.Join(Environment.NewLine, sessionsWeek.Select(v =>
+            lblTotalMinutesWeek.Text = "Total week: " + Utilities.TotalTime(totalMinutesWeek);
+        }
+
+        private void LoadContributionGraph()
+        {
+            var contributions = contributionGraphService.GetYearContributions();
+            
+            if (contributionGraph == null)
             {
-                int barLength = (int)((double)v.TotalMinutes / maxValue * barWidth);
-
-                return new string('█', barLength) + " " + (v.TotalMinutes == 0 ?
-                    string.Empty :
-                    Utilities.TotalTime(v.TotalMinutes) + " " + v.Completed.ToString() + "c");             
-            }));
-
-            lblBar.Text = graphWithLabels;
-            lblTotalMinutesWeek.Text = "Total: " + Utilities.TotalTime(totalMinutesWeek);
+                contributionGraph = new ContributionGraphControl();
+                contributionGraph.Location = new Point(15, 87);
+                this.Controls.Add(contributionGraph);
+            }
+            
+            contributionGraph.LoadData(contributions);
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

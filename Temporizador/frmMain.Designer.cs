@@ -41,8 +41,6 @@
             this.pbControl = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblWeekDays = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblBar = new System.Windows.Forms.Label();
             this.lblLevelPoint = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalMinutesWeek = new System.Windows.Forms.Label();
@@ -176,30 +174,6 @@
             this.lblWeekDays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblWeekDays.Visible = false;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.DarkGray;
-            this.label4.Location = new System.Drawing.Point(12, 86);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 126);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "M\r\nT\r\nW\r\nT\r\nF\r\nS\r\nS";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblBar
-            // 
-            this.lblBar.AutoSize = true;
-            this.lblBar.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBar.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.lblBar.Location = new System.Drawing.Point(28, 86);
-            this.lblBar.Name = "lblBar";
-            this.lblBar.Size = new System.Drawing.Size(88, 18);
-            this.lblBar.TabIndex = 10;
-            this.lblBar.Text = "Hi Padawan";
-            this.lblBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // lblLevelPoint
             // 
             this.lblLevelPoint.AutoSize = true;
@@ -228,8 +202,8 @@
             // 
             this.lblTotalMinutesWeek.AutoSize = true;
             this.lblTotalMinutesWeek.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalMinutesWeek.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblTotalMinutesWeek.Location = new System.Drawing.Point(28, 213);
+            this.lblTotalMinutesWeek.ForeColor = System.Drawing.Color.LightGray;
+            this.lblTotalMinutesWeek.Location = new System.Drawing.Point(12, 210);
             this.lblTotalMinutesWeek.Name = "lblTotalMinutesWeek";
             this.lblTotalMinutesWeek.Size = new System.Drawing.Size(80, 18);
             this.lblTotalMinutesWeek.TabIndex = 13;
@@ -240,12 +214,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(406, 240);
+            this.ClientSize = new System.Drawing.Size(734, 240);
             this.Controls.Add(this.lblTotalMinutesWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevelPoint);
-            this.Controls.Add(this.lblBar);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblWeekDays);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblEndTime);
@@ -285,8 +257,6 @@
         private System.Windows.Forms.CheckBox ckbSound;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblWeekDays;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblBar;
         private System.Windows.Forms.Label lblLevelPoint;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTotalMinutesWeek;

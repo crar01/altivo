@@ -65,6 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ContributionGraphControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dtos\DayContributionDto.cs" />
     <Compile Include="Dtos\SessionWeekDto.cs" />
     <Compile Include="Forms\FrmConcentrationRate.cs">
       <SubType>Form</SubType>
@@ -84,6 +88,7 @@
     <Compile Include="Models\Seed.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ContributionGraphService.cs" />
     <Compile Include="Services\DatabaseInitializer.cs" />
     <Compile Include="Services\ConcentrationService.cs" />
     <Compile Include="Services\MotivationService.cs" />
