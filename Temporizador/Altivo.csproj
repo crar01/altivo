@@ -50,7 +50,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>clock.ico</ApplicationIcon>
+    <ApplicationIcon>Altivo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -132,7 +132,9 @@
     <None Include="Resources\pause.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Altivo.ico" />
     <Content Include="clock.ico" />
+    <None Include="Resources\Altivo-Photoroom.png" />
     <None Include="Resources\altivoImage.PNG" />
     <None Include="Resources\altivoImage.jpg" />
   </ItemGroup>

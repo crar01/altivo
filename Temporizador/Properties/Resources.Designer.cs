@@ -63,6 +63,16 @@ namespace Altivo.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Altivo_Photoroom {
+            get {
+                object obj = ResourceManager.GetObject("Altivo-Photoroom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap altivoImage {
             get {
                 object obj = ResourceManager.GetObject("altivoImage", resourceCulture);

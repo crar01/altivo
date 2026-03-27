@@ -147,14 +147,10 @@ namespace Altivo
         /// </summary>
         private void SaveEndSession()
         {
-            var frmConcentrationRate = new FrmConcentrationRate();
-            frmConcentrationRate.ShowDialog();
-            concentrationService.EndCompletedSession(_concentrationSessionId, frmConcentrationRate.concentrationLevel);
-        }
-
-        private void txtProgressTime_TextChanged(object sender, EventArgs e)
-        {
-            //getEndTime();
+            //var frmConcentrationRate = new FrmConcentrationRate();
+            //frmConcentrationRate.ShowDialog();
+            //concentrationService.EndCompletedSession(_concentrationSessionId, frmConcentrationRate.concentrationLevel);
+            concentrationService.EndCompletedSession(_concentrationSessionId, ConcentrationLevel.High);
         }
 
         private void tmrTimeControl_Tick(object sender, EventArgs e)

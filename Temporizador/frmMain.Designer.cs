@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
             this.tmrTimeControl = new System.Windows.Forms.Timer(this.components);
             this.txtProgressTime = new System.Windows.Forms.TextBox();
             this.lblEndTime = new System.Windows.Forms.Label();
@@ -38,32 +37,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.ckbSound = new System.Windows.Forms.CheckBox();
-            this.pbControl = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblWeekDays = new System.Windows.Forms.Label();
             this.lblLevelPoint = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalMinutesWeek = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbControl = new System.Windows.Forms.PictureBox();
+            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbProgressTime
-            // 
-            this.pbProgressTime.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.pbProgressTime.CornerRadius = 4;
-            this.pbProgressTime.Location = new System.Drawing.Point(15, 50);
-            this.pbProgressTime.Margin = new System.Windows.Forms.Padding(4);
-            this.pbProgressTime.Maximum = 100;
-            this.pbProgressTime.Minimum = 0;
-            this.pbProgressTime.MinimumSize = new System.Drawing.Size(50, 20);
-            this.pbProgressTime.Name = "pbProgressTime";
-            this.pbProgressTime.PercentageFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.pbProgressTime.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(151)))), ((int)(((byte)(105)))));
-            this.pbProgressTime.ShowPercentage = false;
-            this.pbProgressTime.Size = new System.Drawing.Size(338, 27);
-            this.pbProgressTime.TabIndex = 0;
-            this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
-            this.pbProgressTime.Value = 0;
             // 
             // tmrTimeControl
             // 
@@ -80,8 +64,7 @@
             this.txtProgressTime.MaxLength = 4;
             this.txtProgressTime.Name = "txtProgressTime";
             this.txtProgressTime.Size = new System.Drawing.Size(56, 26);
-            this.txtProgressTime.TabIndex = 2;
-            this.txtProgressTime.TextChanged += new System.EventHandler(this.txtProgressTime_TextChanged);
+            this.txtProgressTime.TabIndex = 0;
             this.txtProgressTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProgressTime_KeyPress);
             this.txtProgressTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtProgressTime_KeyUp);
             // 
@@ -139,24 +122,12 @@
             this.ckbSound.Checked = true;
             this.ckbSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbSound.Location = new System.Drawing.Point(257, 19);
+            this.ckbSound.Location = new System.Drawing.Point(583, 12);
             this.ckbSound.Name = "ckbSound";
-            this.ckbSound.Size = new System.Drawing.Size(70, 22);
+            this.ckbSound.Size = new System.Drawing.Size(61, 22);
             this.ckbSound.TabIndex = 6;
-            this.ckbSound.Text = "Sound";
+            this.ckbSound.Text = "Beep";
             this.ckbSound.UseVisualStyleBackColor = true;
-            // 
-            // pbControl
-            // 
-            this.pbControl.BackColor = System.Drawing.Color.Transparent;
-            this.pbControl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbControl.Location = new System.Drawing.Point(360, 45);
-            this.pbControl.Name = "pbControl";
-            this.pbControl.Size = new System.Drawing.Size(32, 32);
-            this.pbControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbControl.TabIndex = 5;
-            this.pbControl.TabStop = false;
-            this.pbControl.Click += new System.EventHandler(this.btnControl_Click);
             // 
             // label3
             // 
@@ -219,12 +190,53 @@
             this.lblTotalMinutesWeek.TabIndex = 13;
             this.lblTotalMinutesWeek.Text = "Total: 0m";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Altivo.Properties.Resources.Altivo_Photoroom;
+            this.pictureBox1.Location = new System.Drawing.Point(650, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(84, 89);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pbControl
+            // 
+            this.pbControl.BackColor = System.Drawing.Color.Transparent;
+            this.pbControl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbControl.Location = new System.Drawing.Point(360, 45);
+            this.pbControl.Name = "pbControl";
+            this.pbControl.Size = new System.Drawing.Size(32, 32);
+            this.pbControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbControl.TabIndex = 5;
+            this.pbControl.TabStop = false;
+            this.pbControl.Click += new System.EventHandler(this.btnControl_Click);
+            // 
+            // pbProgressTime
+            // 
+            this.pbProgressTime.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.pbProgressTime.CornerRadius = 4;
+            this.pbProgressTime.Location = new System.Drawing.Point(15, 50);
+            this.pbProgressTime.Margin = new System.Windows.Forms.Padding(4);
+            this.pbProgressTime.Maximum = 100;
+            this.pbProgressTime.Minimum = 0;
+            this.pbProgressTime.MinimumSize = new System.Drawing.Size(50, 20);
+            this.pbProgressTime.Name = "pbProgressTime";
+            this.pbProgressTime.PercentageFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.pbProgressTime.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(151)))), ((int)(((byte)(105)))));
+            this.pbProgressTime.ShowPercentage = false;
+            this.pbProgressTime.Size = new System.Drawing.Size(338, 27);
+            this.pbProgressTime.TabIndex = 0;
+            this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
+            this.pbProgressTime.Value = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(734, 240);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTotalMinutesWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevelPoint);
@@ -248,6 +260,7 @@
             this.Text = "Altivo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -270,6 +283,7 @@
         private System.Windows.Forms.Label lblLevelPoint;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTotalMinutesWeek;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
