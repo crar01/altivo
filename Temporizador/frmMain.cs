@@ -38,12 +38,21 @@ namespace Altivo
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            CenterAtTopOfActiveMonitor();
+
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
             pbControl.BackgroundImage = Properties.Resources.play;
 
             GetCompletedSessionsThisWeek();
             UpdateMetrics();
             LoadContributionGraph();
+        }
+
+        private void CenterAtTopOfActiveMonitor()
+        {
+            this.StartPosition = FormStartPosition.Manual;
+            Screen activeScreen = Screen.FromPoint(Cursor.Position);
+            this.Location = new Point(activeScreen.WorkingArea.Left + (activeScreen.WorkingArea.Width - this.Width) / 2, activeScreen.WorkingArea.Top);
         }
 
         private void getEndTime()
