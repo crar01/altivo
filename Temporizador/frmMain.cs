@@ -74,11 +74,14 @@ namespace Altivo
                 }
 
                 _minutes = minutes;
-                SetTimeLimit();
             }
             catch (Exception)
             {
-                
+                _minutes = 0;
+            }
+            finally
+            { 
+                SetTimeLimit(); 
             }
         }
 
@@ -92,6 +95,41 @@ namespace Altivo
             lblEndTime.Text = DateTime.Now.AddMinutes(_minutes).ToString(" HH : mm ");
             pbProgressTime.Maximum = _minutes * 60;
             pbProgressTime.Value = _minutes * 60;
+            
+            UpdateModeMessage();
+        }
+
+        private void UpdateModeMessage()
+        {
+            if (_minutes < ModeTimeLimits.WarmUpMin)
+            {
+                lblModeMessage.Text = "";
+                return;
+            }
+
+            if (_minutes <= ModeTimeLimits.WarmUpMax)
+            {
+                lblModeMessage.Text = ModeMessages.WarmUp;
+                lblModeMessage.ForeColor = Color.Orange;
+                return;
+            }
+
+            if (_minutes <= ModeTimeLimits.SeriousModeMax)
+            {
+                lblModeMessage.Text = ModeMessages.SeriousMode;
+                lblModeMessage.ForeColor = Color.Gold;
+                return;
+            }
+
+            if (_minutes <= ModeTimeLimits.DeepWorkMax)
+            {
+                lblModeMessage.Text = ModeMessages.DeepWork;
+                lblModeMessage.ForeColor = Color.MediumSeaGreen;
+                return;
+            }
+
+            lblModeMessage.Text = ModeMessages.FatigueRisk;
+            lblModeMessage.ForeColor = Color.Crimson;
         }
 
         private void CalcTimeLeft()

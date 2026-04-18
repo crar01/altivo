@@ -33,7 +33,7 @@
             this.tmrTimeControl = new System.Windows.Forms.Timer(this.components);
             this.txtProgressTime = new System.Windows.Forms.TextBox();
             this.lblEndTime = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblModeMessage = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.ckbSound = new System.Windows.Forms.CheckBox();
@@ -42,9 +42,11 @@
             this.lblLevelPoint = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalMinutesWeek = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbControl = new System.Windows.Forms.PictureBox();
             this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
             this.SuspendLayout();
@@ -72,27 +74,27 @@
             // 
             this.lblEndTime.AutoSize = true;
             this.lblEndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEndTime.Location = new System.Drawing.Point(182, 20);
+            this.lblEndTime.Location = new System.Drawing.Point(580, 39);
             this.lblEndTime.Name = "lblEndTime";
             this.lblEndTime.Size = new System.Drawing.Size(64, 17);
             this.lblEndTime.TabIndex = 3;
             this.lblEndTime.Text = " 00 : 00";
             // 
-            // label1
+            // lblModeMessage
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(144, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 18);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "End:";
+            this.lblModeMessage.AutoSize = true;
+            this.lblModeMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModeMessage.Location = new System.Drawing.Point(145, 18);
+            this.lblModeMessage.Name = "lblModeMessage";
+            this.lblModeMessage.Size = new System.Drawing.Size(11, 16);
+            this.lblModeMessage.TabIndex = 20;
+            this.lblModeMessage.Text = " ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 19);
+            this.label2.Location = new System.Drawing.Point(12, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 18);
             this.label2.TabIndex = 3;
@@ -122,7 +124,7 @@
             this.ckbSound.Checked = true;
             this.ckbSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbSound.Location = new System.Drawing.Point(583, 12);
+            this.ckbSound.Location = new System.Drawing.Point(566, 10);
             this.ckbSound.Name = "ckbSound";
             this.ckbSound.Size = new System.Drawing.Size(61, 22);
             this.ckbSound.TabIndex = 6;
@@ -190,6 +192,16 @@
             this.lblTotalMinutesWeek.TabIndex = 13;
             this.lblTotalMinutesWeek.Text = "Total: 0m";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Altivo.Properties.Resources.bell_bell;
+            this.pictureBox2.Location = new System.Drawing.Point(566, 38);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 21;
+            this.pictureBox2.TabStop = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Altivo.Properties.Resources.Altivo_Photoroom;
@@ -236,18 +248,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(734, 240);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTotalMinutesWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevelPoint);
             this.Controls.Add(this.lblWeekDays);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblModeMessage);
             this.Controls.Add(this.lblEndTime);
             this.Controls.Add(this.ckbSound);
             this.Controls.Add(this.pbControl);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtProgressTime);
             this.Controls.Add(this.pbProgressTime);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -260,6 +273,7 @@
             this.Text = "Altivo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).EndInit();
             this.ResumeLayout(false);
@@ -273,7 +287,7 @@
         private System.Windows.Forms.Timer tmrTimeControl;
         private System.Windows.Forms.TextBox txtProgressTime;
         private System.Windows.Forms.Label lblEndTime;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblModeMessage;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.PictureBox pbControl;
@@ -284,6 +298,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTotalMinutesWeek;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
