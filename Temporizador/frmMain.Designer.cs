@@ -1,14 +1,14 @@
-Ôªønamespace Altivo
+namespace Altivo
 {
     partial class frmMain
     {
         /// <summary>
-        /// Variable del dise√±ador requerida.
+        /// Variable del diseÒador requerida.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se est√©n utilizando.
+        /// Limpiar los recursos que se estÈn utilizando.
         /// </summary>
         /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose( bool disposing )
@@ -20,11 +20,11 @@
             base.Dispose( disposing );
         }
 
-        #region C√≥digo generado por el Dise√±ador de Windows Forms
+        #region CÛdigo generado por el DiseÒador de Windows Forms
 
         /// <summary>
-        /// M√©todo necesario para admitir el Dise√±ador. No se puede modificar
-        /// el contenido del m√©todo con el editor de c√≥digo.
+        /// MÈtodo necesario para admitir el DiseÒador. No se puede modificar
+        /// el contenido del mÈtodo con el editor de cÛdigo.
         /// </summary>
         private void InitializeComponent()
         {
@@ -74,7 +74,7 @@
             // 
             this.lblEndTime.AutoSize = true;
             this.lblEndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEndTime.Location = new System.Drawing.Point(580, 39);
+            this.lblEndTime.Location = new System.Drawing.Point(580, 53);
             this.lblEndTime.Name = "lblEndTime";
             this.lblEndTime.Size = new System.Drawing.Size(64, 17);
             this.lblEndTime.TabIndex = 3;
@@ -108,7 +108,7 @@
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnStop.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.Color.Lavender;
-            this.btnStop.Location = new System.Drawing.Point(333, 18);
+            this.btnStop.Location = new System.Drawing.Point(501, 16);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(59, 25);
             this.btnStop.TabIndex = 4;
@@ -164,9 +164,9 @@
             this.lblLevelPoint.ForeColor = System.Drawing.Color.LightGreen;
             this.lblLevelPoint.Location = new System.Drawing.Point(314, 175);
             this.lblLevelPoint.Name = "lblLevelPoint";
-            this.lblLevelPoint.Size = new System.Drawing.Size(26, 25);
+            this.lblLevelPoint.Size = new System.Drawing.Size(25, 25);
             this.lblLevelPoint.TabIndex = 11;
-            this.lblLevelPoint.Text = "‚óè";
+            this.lblLevelPoint.Text = "?";
             this.lblLevelPoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblLevelPoint.Visible = false;
             // 
@@ -188,14 +188,14 @@
             this.lblTotalMinutesWeek.ForeColor = System.Drawing.Color.LightGray;
             this.lblTotalMinutesWeek.Location = new System.Drawing.Point(12, 210);
             this.lblTotalMinutesWeek.Name = "lblTotalMinutesWeek";
-            this.lblTotalMinutesWeek.Size = new System.Drawing.Size(80, 18);
+            this.lblTotalMinutesWeek.Size = new System.Drawing.Size(120, 18);
             this.lblTotalMinutesWeek.TabIndex = 13;
-            this.lblTotalMinutesWeek.Text = "Total: 0m";
+            this.lblTotalMinutesWeek.Text = "Total week: 0m";
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Altivo.Properties.Resources.bell_bell;
-            this.pictureBox2.Location = new System.Drawing.Point(566, 38);
+            this.pictureBox2.Location = new System.Drawing.Point(566, 52);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(18, 18);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -216,7 +216,7 @@
             // 
             this.pbControl.BackColor = System.Drawing.Color.Transparent;
             this.pbControl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbControl.Location = new System.Drawing.Point(360, 45);
+            this.pbControl.Location = new System.Drawing.Point(528, 45);
             this.pbControl.Name = "pbControl";
             this.pbControl.Size = new System.Drawing.Size(32, 32);
             this.pbControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -237,7 +237,7 @@
             this.pbProgressTime.PercentageFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.pbProgressTime.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(151)))), ((int)(((byte)(105)))));
             this.pbProgressTime.ShowPercentage = false;
-            this.pbProgressTime.Size = new System.Drawing.Size(338, 27);
+            this.pbProgressTime.Size = new System.Drawing.Size(506, 27);
             this.pbProgressTime.TabIndex = 0;
             this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
             this.pbProgressTime.Value = 0;
@@ -247,7 +247,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(734, 240);
+            this.ClientSize = new System.Drawing.Size(734, 561);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTotalMinutesWeek);

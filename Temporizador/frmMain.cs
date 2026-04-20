@@ -30,6 +30,7 @@ namespace Altivo
         ContributionGraphService contributionGraphService = new ContributionGraphService();
         List<SessionWeekDto> sessionsWeek = new List<SessionWeekDto>();
         ContributionGraphControl contributionGraph;
+        Altivo.Controls.MonthlyDashboardControl monthlyDashboard;
 
         public frmMain()
         {
@@ -101,6 +102,8 @@ namespace Altivo
 
         private void UpdateModeMessage()
         {
+            pbControl.Visible = true;
+
             if (_minutes < ModeTimeLimits.WarmUpMin)
             {
                 lblModeMessage.Text = "";
@@ -110,26 +113,27 @@ namespace Altivo
             if (_minutes <= ModeTimeLimits.WarmUpMax)
             {
                 lblModeMessage.Text = ModeMessages.WarmUp;
-                lblModeMessage.ForeColor = Color.Orange;
+                lblModeMessage.ForeColor = ModeColors.WarmUp;
                 return;
             }
 
             if (_minutes <= ModeTimeLimits.SeriousModeMax)
             {
                 lblModeMessage.Text = ModeMessages.SeriousMode;
-                lblModeMessage.ForeColor = Color.Gold;
+                lblModeMessage.ForeColor = ModeColors.SeriousMode;
                 return;
             }
 
             if (_minutes <= ModeTimeLimits.DeepWorkMax)
             {
                 lblModeMessage.Text = ModeMessages.DeepWork;
-                lblModeMessage.ForeColor = Color.MediumSeaGreen;
+                lblModeMessage.ForeColor = ModeColors.DeepWork;
                 return;
             }
 
             lblModeMessage.Text = ModeMessages.FatigueRisk;
-            lblModeMessage.ForeColor = Color.Crimson;
+            lblModeMessage.ForeColor = ModeColors.FatigueRisk;
+            pbControl.Visible = false;
         }
 
         private void CalcTimeLeft()
@@ -296,8 +300,19 @@ namespace Altivo
                 contributionGraph.Location = new Point(15, 87);
                 this.Controls.Add(contributionGraph);
             }
-            
+
             contributionGraph.LoadData(contributions);
+
+            if (monthlyDashboard == null)
+            {
+                monthlyDashboard = new Altivo.Controls.MonthlyDashboardControl();
+                monthlyDashboard.Location = new Point(15, 240);
+                this.Controls.Add(monthlyDashboard);
+            }
+
+            var thisMonth = motivationService.GetCompletedSessionsThisMonth();
+            var lastMonth = motivationService.GetCompletedSessionsLastMonth();
+            monthlyDashboard.LoadData(thisMonth, lastMonth);
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

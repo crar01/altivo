@@ -17,6 +17,38 @@ namespace Altivo.Services
             _connection = DatabaseInitializer.Connection();
         }
 
+        public List<Altivo.Models.ConcentrationSession> GetCompletedSessionsThisMonth()
+        {
+            try
+            {
+                var beginningOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd 00:00:00");
+                string query = "SELECT * FROM ConcentrationSession WHERE State = 2 AND CreatedAt >= ?";
+                return _connection.Query<Altivo.Models.ConcentrationSession>(query, beginningOfMonth);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return new List<Altivo.Models.ConcentrationSession>();
+            }
+        }
+
+        public List<Altivo.Models.ConcentrationSession> GetCompletedSessionsLastMonth()
+        {
+            try
+            {
+                var beginningOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var beginningOfLastMonth = beginningOfMonth.AddMonths(-1).ToString("yyyy-MM-dd 00:00:00");
+                var endOfLastMonth = beginningOfMonth.AddSeconds(-1).ToString("yyyy-MM-dd 23:59:59");
+                string query = "SELECT * FROM ConcentrationSession WHERE State = 2 AND CreatedAt >= ? AND CreatedAt <= ?";
+                return _connection.Query<Altivo.Models.ConcentrationSession>(query, beginningOfLastMonth, endOfLastMonth);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return new List<Altivo.Models.ConcentrationSession>();
+            }
+        }
+
         public List<SessionWeekDto> GetCompletedPomodorosThisWeek()
         {
             try
