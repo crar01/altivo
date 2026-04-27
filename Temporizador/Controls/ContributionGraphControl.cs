@@ -103,6 +103,7 @@ namespace Altivo.Controls
             DrawWeekDayLabels(g);
             DrawMonthLabels(g);
             DrawCells(g);
+            DrawBackgroundLineGraph(g);
             DrawLegend(g);
         }
 
@@ -144,8 +145,76 @@ namespace Altivo.Controls
                     weekIndex++;
                 }
             }
-            
+
             brush.Dispose();
+        }
+
+        private void DrawBackgroundLineGraph(Graphics g)
+        {
+            if (_contributions.Count == 0) return;
+
+            int totalWeeks = (int)Math.Ceiling((_contributions.Count + GetStartDayIndex()) / 7.0);
+            double[] weeklyTotals = new double[totalWeeks];
+
+            int currentWeek = 0;
+            int dayIndex = GetStartDayIndex();
+
+            foreach (var contribution in _contributions)
+            {
+                if (currentWeek < weeklyTotals.Length)
+                {
+                    weeklyTotals[currentWeek] += contribution.TotalMinutes;
+                }
+
+                dayIndex++;
+                if (dayIndex >= 7)
+                {
+                    dayIndex = 0;
+                    currentWeek++;
+                }
+            }
+
+            double maxWeeklyTotal = weeklyTotals.Length > 0 ? weeklyTotals.Max() : 0;
+            if (maxWeeklyTotal == 0) return;
+
+            int graphYTop = MonthLabelHeight;
+            int graphYBottom = MonthLabelHeight + (7 * (CellSize + CellSpacing));
+            int graphHeight = graphYBottom - graphYTop;
+
+            List<PointF> points = new List<PointF>();
+
+            for (int i = 0; i < weeklyTotals.Length; i++)
+            {
+                float x = WeekDayLabelWidth + (i * (CellSize + CellSpacing)) + (CellSize / 2f);
+                float normalizedY = (float)(weeklyTotals[i] / maxWeeklyTotal);
+                float y = graphYBottom - (normalizedY * graphHeight);
+                points.Add(new PointF(x, y));
+            }
+
+            if (points.Count > 1)
+            {
+                using (Pen pen = new Pen(Color.FromArgb(50, 87, 242, 135), 2f)) 
+                {
+                    pen.LineJoin = LineJoin.Round;
+                    g.DrawLines(pen, points.ToArray());
+                }
+
+                using (GraphicsPath path = new GraphicsPath())
+                {
+                    path.AddLines(points.ToArray());
+                    path.AddLine(points.Last().X, graphYBottom, points.First().X, graphYBottom);
+                    path.CloseFigure();
+
+                    RectangleF bounds = path.GetBounds();
+                    if (bounds.Width > 0 && bounds.Height > 0)
+                    {
+                        using (LinearGradientBrush brush = new LinearGradientBrush(bounds, Color.FromArgb(50, 87, 242, 135), Color.FromArgb(0, 87, 242, 135), LinearGradientMode.Vertical))
+                        {
+                            g.FillPath(brush, path);
+                        }
+                    }
+                }
+            }
         }
 
         private void DrawCells(Graphics g)
