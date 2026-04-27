@@ -78,9 +78,9 @@ namespace Altivo.Controls
                 DrawCenteredText(g, "vs last month", labelFont, subBrush, startX, boxWg, startY + 75);
 
                 // Categories logic
-                DrawStatBox(g, startX + 120, startY, "Deep Work", $"> {ModeTimeLimits.DeepWorkMin - 1} min", currentDeep, total, colorDeep);
+                DrawStatBox(g, startX + 120, startY, "Warm Up", $"< {ModeTimeLimits.WarmUpMax + 1} min", currentWarm, total, colorWarm);
                 DrawStatBox(g, startX + 240, startY, "Serious Mode", $"{ModeTimeLimits.SeriousModeMin} - {ModeTimeLimits.SeriousModeMax} min", currentMod, total, colorMod);
-                DrawStatBox(g, startX + 360, startY, "Warm Up", $"< {ModeTimeLimits.WarmUpMax + 1} min", currentWarm, total, colorWarm);
+                DrawStatBox(g, startX + 360, startY, "Deep Work", $"> {ModeTimeLimits.DeepWorkMin - 1} min", currentDeep, total, colorDeep);
 
                 // Lower section: Distribution
                 int distY = 170;
@@ -134,9 +134,9 @@ namespace Altivo.Controls
                 int legY = distY + 40;
                 g.FillRectangle(bgPanels, new Rectangle(legX, legY - 10, 320, 85));
 
-                DrawLegendItem(g, legX + 10, legY, colorDeep, $"Deep Work (> {ModeTimeLimits.DeepWorkMin - 1} min)", currentDeep, total);
+                DrawLegendItem(g, legX + 10, legY, colorWarm, $"Warm Up (< {ModeTimeLimits.WarmUpMax + 1} min)", currentWarm, total);
                 DrawLegendItem(g, legX + 10, legY + 25, colorMod, $"Serious Mode ({ModeTimeLimits.SeriousModeMin} - {ModeTimeLimits.SeriousModeMax} min)", currentMod, total);
-                DrawLegendItem(g, legX + 10, legY + 50, colorWarm, $"Warm Up (< {ModeTimeLimits.WarmUpMax + 1} min)", currentWarm, total);
+                DrawLegendItem(g, legX + 10, legY + 50, colorDeep, $"Deep Work (> {ModeTimeLimits.DeepWorkMin - 1} min)", currentDeep, total);
             }
         }
 

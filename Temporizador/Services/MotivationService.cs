@@ -55,11 +55,11 @@ namespace Altivo.Services
             {
                 string query = @"
                     WITH RECURSIVE DateRange AS (
-                    SELECT date('now', 'weekday 0', '-6 days') AS dateWeek
+                    SELECT date('now', 'localtime', 'weekday 0', '-6 days') AS dateWeek
                     UNION ALL
                     SELECT date(dateWeek, '+1 day')
                     FROM DateRange
-                    WHERE dateWeek < date('now', 'weekday 1')
+                    WHERE dateWeek < date('now', 'localtime', 'weekday 1')
                         )
                         SELECT 
                             dr.dateWeek AS dateWeek,
