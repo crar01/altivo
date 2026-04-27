@@ -30,7 +30,9 @@ namespace Altivo
         ContributionGraphService contributionGraphService = new ContributionGraphService();
         List<SessionWeekDto> sessionsWeek = new List<SessionWeekDto>();
         ContributionGraphControl contributionGraph;
-        Altivo.Controls.MonthlyDashboardControl monthlyDashboard;
+        MonthlyDashboardControl monthlyDashboard;
+        private NotifyIcon _notifyIcon;
+        private bool _isTimeUpHandled = false;
 
         public frmMain()
         {
@@ -40,6 +42,12 @@ namespace Altivo
         private void Form1_Load(object sender, EventArgs e)
         {
             CenterAtTopOfActiveMonitor();
+
+            _notifyIcon = new NotifyIcon();
+            _notifyIcon.Icon = this.Icon;
+            _notifyIcon.Visible = true;
+            _notifyIcon.BalloonTipClicked += NotifyIcon_BalloonTipClicked;
+            _notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
 
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
             pbControl.BackgroundImage = Properties.Resources.play;
@@ -54,6 +62,17 @@ namespace Altivo
             this.StartPosition = FormStartPosition.Manual;
             Screen activeScreen = Screen.FromPoint(Cursor.Position);
             this.Location = new Point(activeScreen.WorkingArea.Left + (activeScreen.WorkingArea.Width - this.Width) / 2, activeScreen.WorkingArea.Top);
+        }
+
+        private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            RestoreWindowFromNotification();
+        }
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            this.Activate();
+            this.BringToFront();
         }
 
         private void getEndTime()
@@ -188,6 +207,7 @@ namespace Altivo
             btnStop.Visible = false;
             time.IsRunningTime = false;
             time.IsTimeUp = false;
+            _isTimeUpHandled = false;
             txtProgressTime.Enabled = true;
 
             getEndTime();
@@ -234,8 +254,15 @@ namespace Altivo
         /// </summary>
         private void showComponentsWhenTimeUp()
         {
+            if (!_isTimeUpHandled)
+            {
+                _isTimeUpHandled = true;
+
+                _notifyIcon.ShowBalloonTip(15000, "Altivo - Time's up", "Session completed. Great job!", ToolTipIcon.Info);
+            }
+
             if (ckbSound.Checked)
-                Console.Beep();
+                System.Media.SystemSounds.Beep.Play();
 
             pbControl.Visible = false;
             btnStop.Visible = true;
@@ -318,6 +345,11 @@ namespace Altivo
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             DatabaseInitializer.Dispose();
+            if (_notifyIcon != null)
+            {
+                _notifyIcon.Visible = false;
+                _notifyIcon.Dispose();
+            }
         }
     }
 }
