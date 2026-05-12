@@ -68,6 +68,16 @@ namespace Altivo
         {
             RestoreWindowFromNotification();
         }
+
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            RestoreWindowFromNotification();
+        }
+
+        private void RestoreWindowFromNotification()
+        {
+            this.Show();
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 this.WindowState = FormWindowState.Normal;
             }

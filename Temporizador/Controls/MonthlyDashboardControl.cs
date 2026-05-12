@@ -40,10 +40,29 @@ namespace Altivo.Controls
             int currentWarm = _thisMonthSessions.Count(s => s.DurationInMinutes <= ModeTimeLimits.WarmUpMax);
             int total = _thisMonthSessions.Count;
 
-            // Avg
-            double avgThis = _thisMonthSessions.Any() ? _thisMonthSessions.Average(s => s.DurationInMinutes) : 0;
-            double avgLast = _lastMonthSessions.Any() ? _lastMonthSessions.Average(s => s.DurationInMinutes) : 0;
-            int avgDiffPct = avgLast > 0 ? (int)Math.Round(((avgThis - avgLast) / avgLast) * 100) : 0;
+            // Score Calculation
+            double CalculateScore(List<ConcentrationSession> sessions)
+            {
+                if (sessions == null || !sessions.Any()) return 0;
+
+                double score = 0;
+                foreach (var s in sessions)
+                {
+                    double hours = s.DurationInMinutes / 60.0;
+                    if (s.DurationInMinutes >= ModeTimeLimits.DeepWorkMin)
+                        score += hours * 1.5; // 50% extra points
+                    else if (s.DurationInMinutes >= ModeTimeLimits.SeriousModeMin)
+                        score += hours * 1.2; // 20% extra points
+                    else
+                        score += hours * 1.0; // Base points
+                }
+
+                return score;
+            }
+
+            double scoreThis = CalculateScore(_thisMonthSessions);
+            double scoreLast = CalculateScore(_lastMonthSessions);
+            int scoreDiffPct = scoreLast > 0 ? (int)Math.Round(((scoreThis - scoreLast) / scoreLast) * 100) : 0;
 
             // Font
             using (var titleFont = new Font("Segoe UI", 12, FontStyle.Bold))
@@ -60,8 +79,8 @@ namespace Altivo.Controls
             using (var bgPanels = new SolidBrush(Color.FromArgb(35, 35, 35)))
             {
                 // Title
-                g.DrawString("Average session duration (this month)", titleFont, whiteBrush, new PointF(10, 10));
-                g.DrawString("Measures if you are having deep and consistent sessions", subtitleFont, subBrush, new PointF(10, 35));
+                g.DrawString("Productivity Score (this month)", titleFont, whiteBrush, new PointF(10, 10));
+                g.DrawString("Score based on total time and session quality)", subtitleFont, subBrush, new PointF(10, 35));
 
                 // Averages Box
                 int boxWg = 110, boxH = 100;
@@ -69,12 +88,12 @@ namespace Altivo.Controls
                 int startY = 60;
 
                 g.FillRectangle(bgPanels, new Rectangle(startX, startY, boxWg, boxH));
-                DrawCenteredText(g, "Monthly average", labelFont, whiteBrush, startX, boxWg, startY + 5);
-                DrawCenteredText(g, $"{Math.Round(avgThis)} min", valueFont, whiteBrush, startX, boxWg, startY + 25);
+                DrawCenteredText(g, "Monthly Score", labelFont, whiteBrush, startX, boxWg, startY + 5);
+                DrawCenteredText(g, $"{Math.Round(scoreThis)} pts", valueFont, whiteBrush, startX, boxWg, startY + 25);
 
-                Brush diffBrush = avgDiffPct >= 0 ? Brushes.LightGreen : Brushes.Crimson;
-                string diffSign = avgDiffPct >= 0 ? "▲" : "▼";
-                DrawCenteredText(g, $"{diffSign} {Math.Abs(avgDiffPct)}%", labelFont, diffBrush, startX, boxWg, startY + 60);
+                Brush diffBrush = scoreDiffPct >= 0 ? Brushes.LightGreen : Brushes.Crimson;
+                string diffSign = scoreDiffPct >= 0 ? "▲" : "▼";
+                DrawCenteredText(g, $"{diffSign} {Math.Abs(scoreDiffPct)}%", labelFont, diffBrush, startX, boxWg, startY + 60);
                 DrawCenteredText(g, "vs last month", labelFont, subBrush, startX, boxWg, startY + 75);
 
                 // Categories logic

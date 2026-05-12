@@ -104,7 +104,7 @@ namespace Altivo.Controls
             DrawMonthLabels(g);
             DrawCells(g);
             DrawBackgroundLineGraph(g);
-            DrawLegend(g);
+            //DrawLegend(g);
         }
 
         private void DrawWeekDayLabels(Graphics g)
