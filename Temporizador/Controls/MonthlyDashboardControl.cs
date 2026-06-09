@@ -91,7 +91,7 @@ namespace Altivo.Controls
                 DrawCenteredText(g, "Monthly Score", labelFont, whiteBrush, startX, boxWg, startY + 5);
                 DrawCenteredText(g, $"{Math.Round(scoreThis)} pts", valueFont, whiteBrush, startX, boxWg, startY + 25);
 
-                Brush diffBrush = scoreDiffPct >= 0 ? Brushes.LightGreen : Brushes.Crimson;
+                Brush diffBrush = scoreDiffPct >= 0 ? Brushes.LightGreen : new SolidBrush(Color.FromArgb(255, 131, 131));
                 string diffSign = scoreDiffPct >= 0 ? "▲" : "▼";
                 DrawCenteredText(g, $"{diffSign} {Math.Abs(scoreDiffPct)}%", labelFont, diffBrush, startX, boxWg, startY + 60);
                 DrawCenteredText(g, "vs last month", labelFont, subBrush, startX, boxWg, startY + 75);
