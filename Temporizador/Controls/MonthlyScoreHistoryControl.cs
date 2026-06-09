@@ -12,6 +12,15 @@ namespace Altivo.Controls
 {
     public class MonthlyScoreHistoryControl : UserControl
     {
+        private const int BorderRadius = 10;
+        private const int HeaderLeft = 10;
+        private const int HeaderTop = 8;
+        private const int LegendTop = 40;
+        private const int ChartTop = 88;
+        private const int HorizontalPadding = 12;
+        private const int BottomPadding = 28;
+        private const int LabelGap = 18;
+
         private List<ConcentrationSession> _sessions = new List<ConcentrationSession>();
 
         private class MonthlySummary
@@ -44,8 +53,13 @@ namespace Altivo.Controls
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             Rectangle client = ClientRectangle;
+            if (client.Width <= 1 || client.Height <= 1)
+            {
+                return;
+            }
+
             Rectangle card = new Rectangle(0, 0, client.Width - 1, client.Height - 1);
-            using (GraphicsPath path = GetRoundedRectanglePath(card, 10))
+            using (GraphicsPath path = GetRoundedRectanglePath(card, BorderRadius))
             using (SolidBrush backgroundBrush = new SolidBrush(Color.FromArgb(25, 25, 25)))
             using (SolidBrush titleBrush = new SolidBrush(Color.Gainsboro))
             using (SolidBrush subtitleBrush = new SolidBrush(Color.DarkGray))
@@ -61,69 +75,87 @@ namespace Altivo.Controls
             {
                 g.FillPath(backgroundBrush, path);
 
-                g.DrawString("Monthly Score", titleFont, titleBrush, new PointF(10, 8));
-                g.DrawString("Last 6 months", subtitleFont, subtitleBrush, new PointF(10, 26));
-
-                DrawLegend(g, 10, 40, warmBrush, seriousBrush, deepBrush, subtitleBrush, monthFont);
+                DrawHeader(g, titleFont, subtitleFont, titleBrush, subtitleBrush, warmBrush, seriousBrush, deepBrush, monthFont);
 
                 List<MonthlySummary> summaries = BuildSummaries();
                 if (summaries.Count == 0)
                 {
-                    SizeF noDataSize = g.MeasureString("No data", titleFont);
-                    g.DrawString("No data", titleFont, subtitleBrush, new PointF((client.Width - noDataSize.Width) / 2, (client.Height - noDataSize.Height) / 2));
+                    DrawCenteredText(g, "No data", titleFont, subtitleBrush, client);
                     return;
                 }
 
-                int chartLeft = 12;
-                int chartTop = 88;
-                int chartWidth = client.Width - 24;
-                int labelSpace = 18;
-                int chartHeight = Math.Max(72, client.Height - chartTop - 28 - labelSpace);
-                int baseY = chartTop + chartHeight;
-                int spacing = 8;
-                int barWidth = Math.Max(16, Math.Min(34, (chartWidth - ((summaries.Count - 1) * spacing)) / summaries.Count));
-                int totalBarsWidth = (summaries.Count * barWidth) + ((summaries.Count - 1) * spacing);
-                int startX = chartLeft + Math.Max(0, (chartWidth - totalBarsWidth) / 2);
-                double maxScore = Math.Max(1.0, summaries.Max(x => x.Score));
+                DrawChart(g, client, summaries, trackBrush, scoreBrush, subtitleBrush, warmBrush, seriousBrush, deepBrush, scoreFont, monthFont);
+            }
+        }
 
-                for (int i = 0; i < summaries.Count; i++)
+        private void DrawHeader(Graphics g, Font titleFont, Font subtitleFont, Brush titleBrush, Brush subtitleBrush, Brush warmBrush, Brush seriousBrush, Brush deepBrush, Font legendFont)
+        {
+            g.DrawString("Monthly Score", titleFont, titleBrush, new PointF(HeaderLeft, HeaderTop));
+            g.DrawString("Last 6 months", subtitleFont, subtitleBrush, new PointF(HeaderLeft, 26));
+
+            DrawLegend(g, HeaderLeft, LegendTop, warmBrush, seriousBrush, deepBrush, subtitleBrush, legendFont);
+        }
+
+        private void DrawChart(Graphics g, Rectangle client, List<MonthlySummary> summaries, Brush trackBrush, Brush scoreBrush, Brush subtitleBrush, Brush warmBrush, Brush seriousBrush, Brush deepBrush, Font scoreFont, Font monthFont)
+        {
+            int chartWidth = client.Width - (HorizontalPadding * 2);
+            int chartHeight = Math.Max(72, client.Height - ChartTop - BottomPadding - LabelGap);
+            int baseY = ChartTop + chartHeight;
+            int spacing = 8;
+            int barWidth = Math.Max(16, Math.Min(34, (chartWidth - ((summaries.Count - 1) * spacing)) / summaries.Count));
+            int totalBarsWidth = (summaries.Count * barWidth) + ((summaries.Count - 1) * spacing);
+            int startX = HorizontalPadding + Math.Max(0, (chartWidth - totalBarsWidth) / 2);
+            double maxScore = Math.Max(1.0, summaries.Max(x => x.Score));
+
+            for (int i = 0; i < summaries.Count; i++)
+            {
+                DrawMonthBar(g, summaries[i], i, startX, barWidth, spacing, chartHeight, baseY, maxScore, trackBrush, scoreBrush, subtitleBrush, warmBrush, seriousBrush, deepBrush, scoreFont, monthFont);
+            }
+        }
+
+        private void DrawMonthBar(Graphics g, MonthlySummary summary, int index, int startX, int barWidth, int spacing, int chartHeight, int baseY, double maxScore, Brush trackBrush, Brush scoreBrush, Brush subtitleBrush, Brush warmBrush, Brush seriousBrush, Brush deepBrush, Font scoreFont, Font monthFont)
+        {
+            int barHeight = (int)Math.Round(chartHeight * summary.Score / maxScore);
+            if (barHeight < 4 && summary.Score > 0)
+            {
+                barHeight = 4;
+            }
+
+            int barX = startX + index * (barWidth + spacing);
+            int barY = baseY - barHeight;
+
+            g.FillRectangle(trackBrush, new Rectangle(barX, ChartTop, barWidth, chartHeight));
+
+            if (summary.Score > 0)
+            {
+                DrawStackedScoreBar(g, barX, barY, barWidth, barHeight, summary, warmBrush, seriousBrush, deepBrush);
+            }
+            else
+            {
+                using (SolidBrush emptyBrush = new SolidBrush(Color.FromArgb(30, 30, 30)))
                 {
-                    MonthlySummary summary = summaries[i];
-                    int barHeight = (int)Math.Round(chartHeight * summary.Score / maxScore);
-                    if (barHeight < 4 && summary.Score > 0)
-                    {
-                        barHeight = 4;
-                    }
-
-                    int barX = startX + i * (barWidth + spacing);
-                    int barY = baseY - barHeight;
-
-                    g.FillRectangle(trackBrush, new Rectangle(barX, chartTop, barWidth, chartHeight));
-
-                    if (summary.Score > 0)
-                    {
-                        DrawStackedScoreBar(g, barX, barY, barWidth, barHeight, summary, warmBrush, seriousBrush, deepBrush);
-                    }
-                    else
-                    {
-                        using (SolidBrush emptyBrush = new SolidBrush(Color.FromArgb(30, 30, 30)))
-                        {
-                            g.FillRectangle(emptyBrush, new Rectangle(barX, baseY - 4, barWidth, 4));
-                        }
-                    }
-
-                    string scoreText = Math.Round(summary.Score).ToString("0");
-                    SizeF scoreSize = g.MeasureString(scoreText, scoreFont);
-                    float scoreX = barX + (barWidth / 2f) - (scoreSize.Width / 2f);
-                    float scoreY = barY - scoreSize.Height - 4;
-                    g.DrawString(scoreText, scoreFont, scoreBrush, new PointF(scoreX, scoreY));
-
-                    string monthText = summary.Month.ToString("MMM", CultureInfo.InvariantCulture);
-                    SizeF monthSize = g.MeasureString(monthText, monthFont);
-                    float monthX = barX + (barWidth / 2f) - (monthSize.Width / 2f);
-                    g.DrawString(monthText, monthFont, subtitleBrush, new PointF(monthX, baseY + 2));
+                    g.FillRectangle(emptyBrush, new Rectangle(barX, baseY - 4, barWidth, 4));
                 }
             }
+
+            string scoreText = Math.Round(summary.Score).ToString("0");
+            SizeF scoreSize = g.MeasureString(scoreText, scoreFont);
+            float scoreX = barX + (barWidth / 2f) - (scoreSize.Width / 2f);
+            float scoreY = barY - scoreSize.Height - 4;
+            g.DrawString(scoreText, scoreFont, scoreBrush, new PointF(scoreX, scoreY));
+
+            string monthText = summary.Month.ToString("MMM", CultureInfo.InvariantCulture);
+            SizeF monthSize = g.MeasureString(monthText, monthFont);
+            float monthX = barX + (barWidth / 2f) - (monthSize.Width / 2f);
+            g.DrawString(monthText, monthFont, subtitleBrush, new PointF(monthX, baseY + 2));
+        }
+
+        private void DrawCenteredText(Graphics g, string text, Font font, Brush brush, Rectangle bounds)
+        {
+            SizeF size = g.MeasureString(text, font);
+            float x = bounds.X + (bounds.Width - size.Width) / 2;
+            float y = bounds.Y + (bounds.Height - size.Height) / 2;
+            g.DrawString(text, font, brush, new PointF(x, y));
         }
 
         private List<MonthlySummary> BuildSummaries()
