@@ -31,6 +31,7 @@ namespace Altivo
         List<SessionWeekDto> sessionsWeek = new List<SessionWeekDto>();
         ContributionGraphControl contributionGraph;
         MonthlyDashboardControl monthlyDashboard;
+        MonthlyScoreHistoryControl monthlyScoreHistory;
         private NotifyIcon _notifyIcon;
         private bool _isTimeUpHandled = false;
 
@@ -350,6 +351,16 @@ namespace Altivo
             var thisMonth = motivationService.GetCompletedSessionsThisMonth();
             var lastMonth = motivationService.GetCompletedSessionsLastMonth();
             monthlyDashboard.LoadData(thisMonth, lastMonth);
+
+            if (monthlyScoreHistory == null)
+            {
+                monthlyScoreHistory = new MonthlyScoreHistoryControl();
+                monthlyScoreHistory.Location = new Point(monthlyDashboard.Right, monthlyDashboard.Top);
+                monthlyScoreHistory.Size = new Size(this.ClientSize.Width - monthlyDashboard.Right - 15, monthlyDashboard.Height);
+                this.Controls.Add(monthlyScoreHistory);
+            }
+
+            monthlyScoreHistory.LoadData(motivationService.GetCompletedSessionsLastSixMonths());
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

@@ -74,6 +74,9 @@
     <Compile Include="Controls\MonthlyDashboardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\MonthlyScoreHistoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Dtos\DayContributionDto.cs" />
     <Compile Include="Dtos\SessionWeekDto.cs" />
     <Compile Include="Forms\FrmConcentrationRate.cs">

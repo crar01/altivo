@@ -97,9 +97,9 @@ namespace Altivo.Controls
                 DrawCenteredText(g, "vs last month", labelFont, subBrush, startX, boxWg, startY + 75);
 
                 // Categories logic
-                DrawStatBox(g, startX + 120, startY, "Warm Up", $"< {ModeTimeLimits.WarmUpMax + 1} min", currentWarm, total, colorWarm);
-                DrawStatBox(g, startX + 240, startY, "Serious Mode", $"{ModeTimeLimits.SeriousModeMin} - {ModeTimeLimits.SeriousModeMax} min", currentMod, total, colorMod);
-                DrawStatBox(g, startX + 360, startY, "Deep Work", $"> {ModeTimeLimits.DeepWorkMin - 1} min", currentDeep, total, colorDeep);
+                DrawStatBox(g, startX + 120, startY, ModeMessages.WarmUp, $"< {ModeTimeLimits.WarmUpMax + 1} min", currentWarm, total, colorWarm);
+                DrawStatBox(g, startX + 240, startY, ModeMessages.SeriousMode, $"{ModeTimeLimits.SeriousModeMin} - {ModeTimeLimits.SeriousModeMax} min", currentMod, total, colorMod);
+                DrawStatBox(g, startX + 360, startY, ModeMessages.DeepWork, $"> {ModeTimeLimits.DeepWorkMin - 1} min", currentDeep, total, colorDeep);
 
                 // Lower section: Distribution
                 int distY = 170;

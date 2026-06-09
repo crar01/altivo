@@ -49,6 +49,24 @@ namespace Altivo.Services
             }
         }
 
+        public List<Altivo.Models.ConcentrationSession> GetCompletedSessionsLastSixMonths()
+        {
+            try
+            {
+                var beginningOfCurrentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var beginningOfPeriod = beginningOfCurrentMonth.AddMonths(-6).ToString("yyyy-MM-dd 00:00:00");
+                var endOfPeriod = beginningOfCurrentMonth.AddMonths(1).ToString("yyyy-MM-dd 00:00:00");
+
+                string query = "SELECT * FROM ConcentrationSession WHERE State = 2 AND CreatedAt >= ? AND CreatedAt < ? ORDER BY CreatedAt ASC";
+                return _connection.Query<Altivo.Models.ConcentrationSession>(query, beginningOfPeriod, endOfPeriod);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return new List<Altivo.Models.ConcentrationSession>();
+            }
+        }
+
         public List<SessionWeekDto> GetCompletedPomodorosThisWeek()
         {
             try
