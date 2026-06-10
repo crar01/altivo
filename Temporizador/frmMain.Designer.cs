@@ -36,6 +36,7 @@ namespace Altivo
             this.lblModeMessage = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ckbSound = new System.Windows.Forms.CheckBox();
+            this.ckbFloatingTimer = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblWeekDays = new System.Windows.Forms.Label();
             this.lblLevelPoint = new System.Windows.Forms.Label();
@@ -105,12 +106,24 @@ namespace Altivo
             this.ckbSound.Checked = true;
             this.ckbSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbSound.Location = new System.Drawing.Point(566, 10);
+            this.ckbSound.Location = new System.Drawing.Point(583, 15);
             this.ckbSound.Name = "ckbSound";
             this.ckbSound.Size = new System.Drawing.Size(61, 22);
             this.ckbSound.TabIndex = 6;
             this.ckbSound.Text = "Beep";
             this.ckbSound.UseVisualStyleBackColor = true;
+            // 
+            // ckbFloatingTimer
+            // 
+            this.ckbFloatingTimer.AutoSize = true;
+            this.ckbFloatingTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckbFloatingTimer.Location = new System.Drawing.Point(467, 15);
+            this.ckbFloatingTimer.Name = "ckbFloatingTimer";
+            this.ckbFloatingTimer.Size = new System.Drawing.Size(110, 22);
+            this.ckbFloatingTimer.TabIndex = 22;
+            this.ckbFloatingTimer.Text = "Widget timer";
+            this.ckbFloatingTimer.UseVisualStyleBackColor = true;
+            this.ckbFloatingTimer.CheckedChanged += new System.EventHandler(this.ckbFloatingTimer_CheckedChanged);
             // 
             // label3
             // 
@@ -239,6 +252,7 @@ namespace Altivo
             this.Controls.Add(this.lblModeMessage);
             this.Controls.Add(this.lblEndTime);
             this.Controls.Add(this.ckbSound);
+            this.Controls.Add(this.ckbFloatingTimer);
             this.Controls.Add(this.pbControl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtProgressTime);
@@ -253,6 +267,7 @@ namespace Altivo
             this.Text = "Altivo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.frmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).EndInit();
@@ -271,6 +286,7 @@ namespace Altivo
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pbControl;
         private System.Windows.Forms.CheckBox ckbSound;
+        private System.Windows.Forms.CheckBox ckbFloatingTimer;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblWeekDays;
         private System.Windows.Forms.Label lblLevelPoint;

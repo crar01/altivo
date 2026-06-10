@@ -79,6 +79,9 @@
     </Compile>
     <Compile Include="Dtos\DayContributionDto.cs" />
     <Compile Include="Dtos\SessionWeekDto.cs" />
+    <Compile Include="Forms\FloatingTimerWidget.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FrmConcentrationRate.cs">
       <SubType>Form</SubType>
     </Compile>

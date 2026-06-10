@@ -33,6 +33,7 @@ namespace Altivo
         MonthlyDashboardControl monthlyDashboard;
         MonthlyScoreHistoryControl monthlyScoreHistory;
         private NotifyIcon _notifyIcon;
+        private FloatingTimerWidget _floatingTimerWidget;
         private bool _isTimeUpHandled = false;
 
         public frmMain()
@@ -45,6 +46,7 @@ namespace Altivo
             CenterAtTopOfActiveMonitor();
 
             InitializeTrayIconAndControlImage();
+            InitializeFloatingTimerWidget();
 
             GetCompletedSessionsThisWeek();
             UpdateMetrics();
@@ -61,6 +63,54 @@ namespace Altivo
 
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
             pbControl.Image = Properties.Resources.play;
+        }
+
+        private void InitializeFloatingTimerWidget()
+        {
+            _floatingTimerWidget = new FloatingTimerWidget();
+            _floatingTimerWidget.WidgetDoubleClicked += FloatingTimerWidget_WidgetDoubleClicked;
+            _floatingTimerWidget.SetRemainingTime(0);
+            _floatingTimerWidget.Hide();
+        }
+
+        private void FloatingTimerWidget_WidgetDoubleClicked(object sender, EventArgs e)
+        {
+            RestoreWindowFromNotification();
+        }
+
+        private void UpdateFloatingTimerWidget()
+        {
+            if (_floatingTimerWidget == null)
+            {
+                return;
+            }
+
+            if (!ckbFloatingTimer.Checked)
+            {
+                _floatingTimerWidget.Hide();
+                return;
+            }
+
+            _floatingTimerWidget.SetRemainingTime(pbProgressTime.Value);
+
+            if (time.IsRunningTime || time.IsPaused || time.IsTimeUp)
+            {
+                if (!_floatingTimerWidget.Visible)
+                {
+                    _floatingTimerWidget.ShowNearOwner(this);
+                }
+                else
+                {
+                    _floatingTimerWidget.BringToFront();
+                }
+
+                return;
+            }
+
+            if (_floatingTimerWidget.Visible)
+            {
+                _floatingTimerWidget.Hide();
+            }
         }
 
         private void CenterAtTopOfActiveMonitor()
@@ -89,6 +139,7 @@ namespace Altivo
             }
             this.Activate();
             this.BringToFront();
+            UpdateFloatingTimerWidget();
         }
 
         private void CalcEndTime()
@@ -121,6 +172,11 @@ namespace Altivo
             }
         }
 
+        private void frmMain_Resize(object sender, EventArgs e)
+        {
+            UpdateFloatingTimerWidget();
+        }
+
         private void SetDefaultTimeIfEmpty()
         {
             txtProgressTime.Text = string.IsNullOrEmpty(txtProgressTime.Text) ? "25" : txtProgressTime.Text;
@@ -133,6 +189,7 @@ namespace Altivo
             pbProgressTime.Value = _minutes * 60;
             
             UpdateModeMessage();
+            UpdateFloatingTimerWidget();
         }
 
         private void UpdateModeMessage()
@@ -213,6 +270,12 @@ namespace Altivo
             }
 
             time.IsRunningTime = !time.IsRunningTime;
+            UpdateFloatingTimerWidget();
+        }
+
+        private void ckbFloatingTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateFloatingTimerWidget();
         }
 
         private void StopSession()
@@ -232,6 +295,7 @@ namespace Altivo
             txtProgressTime.Enabled = true;
 
             CalcEndTime();
+            UpdateFloatingTimerWidget();
         }
 
         /// <summary>
@@ -268,6 +332,7 @@ namespace Altivo
                 time.IsTimeUp = true;
 
             _taskBar.SetProgressState(TaskbarProgressBarState.Normal);
+            UpdateFloatingTimerWidget();
         }
 
         /// <summary>
@@ -288,6 +353,7 @@ namespace Altivo
             pbControl.Visible = true;
             pbControl.Image = Properties.Resources.stop_button;
             pbProgressTime.Value = 0;
+            UpdateFloatingTimerWidget();
         }
 
         private void txtProgressTime_KeyPress(object sender, KeyPressEventArgs e)
