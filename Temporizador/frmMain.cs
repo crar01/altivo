@@ -44,6 +44,15 @@ namespace Altivo
         {
             CenterAtTopOfActiveMonitor();
 
+            InitializeTrayIconAndControlImage();
+
+            GetCompletedSessionsThisWeek();
+            UpdateMetrics();
+            LoadContributionGraph();
+        }
+
+        private void InitializeTrayIconAndControlImage()
+        {
             _notifyIcon = new NotifyIcon();
             _notifyIcon.Icon = this.Icon;
             _notifyIcon.Visible = true;
@@ -52,10 +61,6 @@ namespace Altivo
 
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
             pbControl.Image = Properties.Resources.play;
-
-            GetCompletedSessionsThisWeek();
-            UpdateMetrics();
-            LoadContributionGraph();
         }
 
         private void CenterAtTopOfActiveMonitor()
@@ -86,7 +91,7 @@ namespace Altivo
             this.BringToFront();
         }
 
-        private void getEndTime()
+        private void CalcEndTime()
         {
             int minutes = 0;
             string[] timeMinutesSeconda;
@@ -187,7 +192,7 @@ namespace Altivo
             if(string.IsNullOrEmpty(txtProgressTime.Text))
             {
                 SetDefaultTimeIfEmpty();
-                getEndTime();
+                CalcEndTime();
             }
 
             if (time.IsRunningTime)
@@ -226,7 +231,7 @@ namespace Altivo
             _isTimeUpHandled = false;
             txtProgressTime.Enabled = true;
 
-            getEndTime();
+            CalcEndTime();
         }
 
         /// <summary>
@@ -296,7 +301,7 @@ namespace Altivo
 
         private void txtProgressTime_KeyUp(object sender, KeyEventArgs e)
         {
-            getEndTime();
+            CalcEndTime();
         }
 
         private void ResetDataSession()
