@@ -50,6 +50,24 @@ namespace Altivo.Services
             return EndSession(sessionId);
         }
 
+        public int DeleteSession(int sessionId)
+        {
+            try
+            {
+                var session = _connection.Table<ConcentrationSession>().Where(x => x.Id == sessionId).FirstOrDefault();
+                if (session == null)
+                {
+                    return 0;
+                }
+
+                return _connection.Delete(session);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private int EndSession(int sessionId, ConcentrationLevel concentrationLevel = ConcentrationLevel.Low)
         {
             try

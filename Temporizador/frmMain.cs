@@ -375,11 +375,23 @@ namespace Altivo
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            DeleteSessionIfRunning();
+
             DatabaseInitializer.Dispose();
             if (_notifyIcon != null)
             {
                 _notifyIcon.Visible = false;
                 _notifyIcon.Dispose();
+            }
+        }
+
+        private void DeleteSessionIfRunning()
+        {
+            if ((_concentrationSessionId != 0) && (time.IsRunningTime || time.IsPaused))
+            {
+                tmrTimeControl.Stop();
+                concentrationService.DeleteSession(_concentrationSessionId);
+                ResetDataSession();
             }
         }
     }
