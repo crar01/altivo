@@ -142,6 +142,7 @@
   <ItemGroup>
     <Content Include="Altivo.ico" />
     <Content Include="clock.ico" />
+    <None Include="Resources\stop-button.png" />
     <None Include="Resources\bell-bell.png" />
     <None Include="Resources\Altivo-Photoroom.png" />
     <None Include="Resources\altivoImage.PNG" />

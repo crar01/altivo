@@ -35,7 +35,6 @@ namespace Altivo
             this.lblEndTime = new System.Windows.Forms.Label();
             this.lblModeMessage = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
             this.ckbSound = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblWeekDays = new System.Windows.Forms.Label();
@@ -99,24 +98,6 @@ namespace Altivo
             this.label2.Size = new System.Drawing.Size(68, 18);
             this.label2.TabIndex = 3;
             this.label2.Text = "Minutes :";
-            // 
-            // btnStop
-            // 
-            this.btnStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnStop.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.ForeColor = System.Drawing.Color.Lavender;
-            this.btnStop.Location = new System.Drawing.Point(501, 16);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(59, 25);
-            this.btnStop.TabIndex = 4;
-            this.btnStop.Text = "Finish";
-            this.btnStop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Visible = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // ckbSound
             // 
@@ -259,7 +240,6 @@ namespace Altivo
             this.Controls.Add(this.lblEndTime);
             this.Controls.Add(this.ckbSound);
             this.Controls.Add(this.pbControl);
-            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtProgressTime);
             this.Controls.Add(this.pbProgressTime);
@@ -289,7 +269,6 @@ namespace Altivo
         private System.Windows.Forms.Label lblEndTime;
         private System.Windows.Forms.Label lblModeMessage;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.PictureBox pbControl;
         private System.Windows.Forms.CheckBox ckbSound;
         private System.Windows.Forms.Label label3;

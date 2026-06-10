@@ -51,7 +51,7 @@ namespace Altivo
             _notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
 
             pbControl.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbControl.BackgroundImage = Properties.Resources.play;
+            pbControl.Image = Properties.Resources.play;
 
             GetCompletedSessionsThisWeek();
             UpdateMetrics();
@@ -178,6 +178,12 @@ namespace Altivo
 
         private void btnControl_Click(object sender, EventArgs e)
         {
+            if (time.IsTimeUp)
+            {
+                StopSession();
+                return;
+            }
+
             if(string.IsNullOrEmpty(txtProgressTime.Text))
             {
                 SetDefaultTimeIfEmpty();
@@ -188,7 +194,7 @@ namespace Altivo
             {
                 tmrTimeControl.Stop();
                 time.IsPaused = true;
-                pbControl.BackgroundImage = Properties.Resources.play;
+                pbControl.Image = Properties.Resources.play;
                 txtProgressTime.Enabled = true;
             }
             else
@@ -196,7 +202,7 @@ namespace Altivo
                 tmrTimeControl.Start();
                 time.IsPaused = false;
                 txtProgressTime.Enabled = false;
-                pbControl.BackgroundImage = Properties.Resources.pause;
+                pbControl.Image = Properties.Resources.pause;
 
                 InitConcentrationSession();
             }
@@ -204,7 +210,7 @@ namespace Altivo
             time.IsRunningTime = !time.IsRunningTime;
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void StopSession()
         {
             tmrTimeControl.Stop();
             
@@ -213,9 +219,8 @@ namespace Altivo
             UpdateMetrics();
             LoadContributionGraph();
 
-            pbControl.BackgroundImage = Properties.Resources.play;
+            pbControl.Image = Properties.Resources.play;
             pbControl.Visible = true;
-            btnStop.Visible = false;
             time.IsRunningTime = false;
             time.IsTimeUp = false;
             _isTimeUpHandled = false;
@@ -275,8 +280,8 @@ namespace Altivo
             if (ckbSound.Checked)
                 System.Media.SystemSounds.Beep.Play();
 
-            pbControl.Visible = false;
-            btnStop.Visible = true;
+            pbControl.Visible = true;
+            pbControl.Image = Properties.Resources.stop_button;
             pbProgressTime.Value = 0;
         }
 
@@ -343,7 +348,7 @@ namespace Altivo
 
             if (monthlyDashboard == null)
             {
-                monthlyDashboard = new Altivo.Controls.MonthlyDashboardControl();
+                monthlyDashboard = new MonthlyDashboardControl();
                 monthlyDashboard.Location = new Point(15, 240);
                 this.Controls.Add(monthlyDashboard);
             }
