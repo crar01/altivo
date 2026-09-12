@@ -46,6 +46,7 @@ namespace Altivo
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbControl = new System.Windows.Forms.PictureBox();
             this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
+            this.lblNewVersionAvailable = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
@@ -236,12 +237,27 @@ namespace Altivo
             this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
             this.pbProgressTime.Value = 0;
             // 
+            // lblNewVersionAvailable
+            // 
+            this.lblNewVersionAvailable.AutoSize = true;
+            this.lblNewVersionAvailable.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblNewVersionAvailable.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewVersionAvailable.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.lblNewVersionAvailable.Location = new System.Drawing.Point(606, 547);
+            this.lblNewVersionAvailable.Name = "lblNewVersionAvailable";
+            this.lblNewVersionAvailable.Size = new System.Drawing.Size(128, 16);
+            this.lblNewVersionAvailable.TabIndex = 23;
+            this.lblNewVersionAvailable.Text = "New version available";
+            this.lblNewVersionAvailable.Visible = false;
+            this.lblNewVersionAvailable.Click += new System.EventHandler(this.lblNewVersionAvailable_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(734, 561);
+            this.Controls.Add(this.lblNewVersionAvailable);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTotalMinutesWeek);
@@ -294,6 +310,7 @@ namespace Altivo
         private System.Windows.Forms.Label lblTotalMinutesWeek;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label lblNewVersionAvailable;
     }
 }
 

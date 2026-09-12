@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 namespace Altivo
@@ -36,12 +37,14 @@ namespace Altivo
         private FloatingTimerWidget _floatingTimerWidget;
         private bool _isTimeUpHandled = false;
 
+        private string _releasesUrl;
+
         public frmMain()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             CenterAtTopOfActiveMonitor();
 
@@ -51,7 +54,14 @@ namespace Altivo
             GetCompletedSessionsThisWeek();
             UpdateMetrics();
             LoadContributionGraph();
-        }
+            var isNew = await Altivo.Services.GitHubUpdater.IsNewVersionAvailableAsync();
+            if (isNew)
+            {
+                _releasesUrl = Altivo.Services.GitHubUpdater.ReleasesUrl;
+                lblNewVersionAvailable.Text = $"New version available: {Altivo.Services.GitHubUpdater.LatestVersion}";
+                lblNewVersionAvailable.Visible = true;
+            }
+        }       
 
         private void InitializeTrayIconAndControlImage()
         {
@@ -460,5 +470,20 @@ namespace Altivo
                 ResetDataSession();
             }
         }
+
+        private void lblNewVersionAvailable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var url = _releasesUrl ?? "https://github.com/crar01/altivo/releases";
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+            }
+            catch
+            {
+                // ignore failures to open browser
+            }
+        }
+
+        // Update check moved to GitHubUpdater.IsNewVersionAvailableAsync
     }
 }

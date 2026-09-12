@@ -103,12 +103,16 @@
     <Compile Include="Services\ContributionGraphService.cs" />
     <Compile Include="Services\DatabaseInitializer.cs" />
     <Compile Include="Services\ConcentrationService.cs" />
+    <Compile Include="Services\GitHubUpdater.cs" />
     <Compile Include="Services\MotivationService.cs" />
     <Compile Include="Services\SeedService.cs" />
     <Compile Include="Shared\ModeMessages.cs" />
     <Compile Include="Shared\ModeTimeLimits.cs" />
     <Compile Include="Shared\Utilities.cs" />
     <Compile Include="Time.cs" />
+    <EmbeddedResource Include="Forms\FloatingTimerWidget.resx">
+      <DependentUpon>FloatingTimerWidget.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmConcentrationRate.resx">
       <DependentUpon>FrmConcentrationRate.cs</DependentUpon>
     </EmbeddedResource>

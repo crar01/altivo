@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -69,6 +68,8 @@ namespace Altivo
                 ? string.Format("{0} sec left", remainingSeconds)
                 : string.Format("{0} min left", remainingSeconds / 60);
         }
+
+        // Update checking removed from widget; handled centrally in frmMain (single responsibility).
 
         public void ShowNearOwner(Form owner)
         {
@@ -158,5 +159,19 @@ namespace Altivo
 
         [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FloatingTimerWidget));
+            this.SuspendLayout();
+            // 
+            // FloatingTimerWidget
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FloatingTimerWidget";
+            this.ResumeLayout(false);
+
+        }
     }
 }
