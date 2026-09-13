@@ -1,14 +1,14 @@
-namespace Altivo
+ï»¿namespace Altivo
 {
     partial class frmMain
     {
         /// <summary>
-        /// Variable del diseñador requerida.
+        /// Variable del diseÃ±ador requerida.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén utilizando.
+        /// Limpiar los recursos que se estÃ©n utilizando.
         /// </summary>
         /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose( bool disposing )
@@ -20,11 +20,11 @@ namespace Altivo
             base.Dispose( disposing );
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region CÃ³digo generado por el DiseÃ±ador de Windows Forms
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido del método con el editor de código.
+        /// MÃ©todo necesario para admitir el DiseÃ±ador. No se puede modificar
+        /// el contenido del mÃ©todo con el editor de cÃ³digo.
         /// </summary>
         private void InitializeComponent()
         {
@@ -43,12 +43,14 @@ namespace Altivo
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalMinutesWeek = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbInspiration = new System.Windows.Forms.PictureBox();
+            this.btnChangeInspirationImage = new System.Windows.Forms.Button();
+            this.btnResetInspirationImage = new System.Windows.Forms.Button();
             this.pbControl = new System.Windows.Forms.PictureBox();
             this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
             this.lblNewVersionAvailable = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbInspiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,15 +199,55 @@ namespace Altivo
             this.pictureBox2.TabIndex = 21;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox1
+            // pbInspiration
             // 
-            this.pictureBox1.Image = global::Altivo.Properties.Resources.Altivo_Photoroom;
-            this.pictureBox1.Location = new System.Drawing.Point(650, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(84, 89);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
+            this.pbInspiration.Image = global::Altivo.Properties.Resources.Altivo_Photoroom;
+            this.pbInspiration.Location = new System.Drawing.Point(648, 0);
+            this.pbInspiration.Name = "pbInspiration";
+            this.pbInspiration.Size = new System.Drawing.Size(84, 89);
+            this.pbInspiration.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbInspiration.TabIndex = 14;
+            this.pbInspiration.TabStop = false;
+            this.pbInspiration.MouseEnter += new System.EventHandler(this.pbInspiration_MouseEnter);
+            this.pbInspiration.MouseLeave += new System.EventHandler(this.pbInspiration_MouseLeave);
+            // 
+            // btnChangeInspirationImage
+            // 
+            this.btnChangeInspirationImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnChangeInspirationImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeInspirationImage.FlatAppearance.BorderSize = 0;
+            this.btnChangeInspirationImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangeInspirationImage.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeInspirationImage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnChangeInspirationImage.Location = new System.Drawing.Point(678, 65);
+            this.btnChangeInspirationImage.Name = "btnChangeInspirationImage";
+            this.btnChangeInspirationImage.Size = new System.Drawing.Size(28, 24);
+            this.btnChangeInspirationImage.TabIndex = 24;
+            this.btnChangeInspirationImage.Text = "...";
+            this.btnChangeInspirationImage.UseVisualStyleBackColor = false;
+            this.btnChangeInspirationImage.Visible = false;
+            this.btnChangeInspirationImage.Click += new System.EventHandler(this.btnChangeInspirationImage_Click);
+            this.btnChangeInspirationImage.MouseEnter += new System.EventHandler(this.InspirationButtons_MouseEnter);
+            this.btnChangeInspirationImage.MouseLeave += new System.EventHandler(this.InspirationButtons_MouseLeave);
+            // 
+            // btnResetInspirationImage
+            // 
+            this.btnResetInspirationImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnResetInspirationImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnResetInspirationImage.FlatAppearance.BorderSize = 0;
+            this.btnResetInspirationImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnResetInspirationImage.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetInspirationImage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnResetInspirationImage.Location = new System.Drawing.Point(706, 65);
+            this.btnResetInspirationImage.Name = "btnResetInspirationImage";
+            this.btnResetInspirationImage.Size = new System.Drawing.Size(28, 24);
+            this.btnResetInspirationImage.TabIndex = 25;
+            this.btnResetInspirationImage.Text = "â†º";
+            this.btnResetInspirationImage.UseVisualStyleBackColor = false;
+            this.btnResetInspirationImage.Visible = false;
+            this.btnResetInspirationImage.Click += new System.EventHandler(this.btnResetInspirationImage_Click);
+            this.btnResetInspirationImage.MouseEnter += new System.EventHandler(this.InspirationButtons_MouseEnter);
+            this.btnResetInspirationImage.MouseLeave += new System.EventHandler(this.InspirationButtons_MouseLeave);
             // 
             // pbControl
             // 
@@ -259,7 +301,9 @@ namespace Altivo
             this.ClientSize = new System.Drawing.Size(734, 561);
             this.Controls.Add(this.lblNewVersionAvailable);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnResetInspirationImage);
+            this.Controls.Add(this.btnChangeInspirationImage);
+            this.Controls.Add(this.pbInspiration);
             this.Controls.Add(this.lblTotalMinutesWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevelPoint);
@@ -285,7 +329,7 @@ namespace Altivo
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbInspiration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -308,7 +352,9 @@ namespace Altivo
         private System.Windows.Forms.Label lblLevelPoint;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTotalMinutesWeek;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbInspiration;
+        private System.Windows.Forms.Button btnChangeInspirationImage;
+        private System.Windows.Forms.Button btnResetInspirationImage;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblNewVersionAvailable;
     }

@@ -38,6 +38,7 @@ namespace Altivo
         private bool _isTimeUpHandled = false;
 
         private string _releasesUrl;
+        private readonly InspirationImageService _inspirationImageService = new InspirationImageService();
 
         public frmMain()
         {
@@ -50,6 +51,7 @@ namespace Altivo
 
             InitializeTrayIconAndControlImage();
             InitializeFloatingTimerWidget();
+            LoadSavedInspirationImage();
 
             GetCompletedSessionsThisWeek();
             UpdateMetrics();
@@ -453,6 +455,11 @@ namespace Altivo
         {
             DeleteSessionIfRunning();
 
+            if (pbInspiration.Image != null && !ReferenceEquals(pbInspiration.Image, Properties.Resources.Altivo_Photoroom))
+            {
+                pbInspiration.Image.Dispose();
+            }
+
             DatabaseInitializer.Dispose();
             if (_notifyIcon != null)
             {
@@ -484,6 +491,74 @@ namespace Altivo
             }
         }
 
-        // Update check moved to GitHubUpdater.IsNewVersionAvailableAsync
+        private void pbInspiration_MouseEnter(object sender, EventArgs e) => SetInspirationButtonsVisible(true);
+
+        private void pbInspiration_MouseLeave(object sender, EventArgs e) => BeginInvoke(new Action(HideInspirationButtonsIfNeeded));
+
+        private void InspirationButtons_MouseEnter(object sender, EventArgs e) => SetInspirationButtonsVisible(true);
+
+        private void InspirationButtons_MouseLeave(object sender, EventArgs e) => BeginInvoke(new Action(HideInspirationButtonsIfNeeded));
+
+        private void btnChangeInspirationImage_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new OpenFileDialog { Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif", Title = "Select inspiration image" })
+            {
+                var respDialog = dialog.ShowDialog(this);
+                SetInspirationButtonsVisible(false);
+
+                if (respDialog != DialogResult.OK)
+                {
+                    return;
+                }
+
+                var image = _inspirationImageService.Save(dialog.FileName);
+                if (image != null)
+                {
+                    SetInspirationImage(image);
+                }
+            }
+        }
+
+        private void btnResetInspirationImage_Click(object sender, EventArgs e)
+        {
+            _inspirationImageService.Reset();
+            SetInspirationImage(Properties.Resources.Altivo_Photoroom);
+        }
+
+        private void SetInspirationButtonsVisible(bool visible)
+        {
+            btnChangeInspirationImage.Visible = visible;
+            btnResetInspirationImage.Visible = visible;
+        }
+
+        private void HideInspirationButtonsIfNeeded()
+        {
+            var p = PointToClient(Cursor.Position);
+            if (pbInspiration.Bounds.Contains(p) || btnChangeInspirationImage.Bounds.Contains(p) || btnResetInspirationImage.Bounds.Contains(p)) 
+                return;
+
+            SetInspirationButtonsVisible(false);
+        }
+
+        private void LoadSavedInspirationImage()
+        {
+            var image = _inspirationImageService.Load();
+            if (image == null)
+            {
+                return;
+            }
+
+            SetInspirationImage(image);
+        }
+
+        private void SetInspirationImage(Image image)
+        {
+            if (pbInspiration.Image != null && !ReferenceEquals(pbInspiration.Image, Properties.Resources.Altivo_Photoroom))
+            {
+                pbInspiration.Image.Dispose();
+            }
+
+            pbInspiration.Image = image;
+        }
     }
 }

@@ -104,6 +104,7 @@
     <Compile Include="Services\DatabaseInitializer.cs" />
     <Compile Include="Services\ConcentrationService.cs" />
     <Compile Include="Services\GitHubUpdater.cs" />
+    <Compile Include="Services\InspirationImageService.cs" />
     <Compile Include="Services\MotivationService.cs" />
     <Compile Include="Services\SeedService.cs" />
     <Compile Include="Shared\ModeMessages.cs" />
