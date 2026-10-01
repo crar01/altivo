@@ -34,7 +34,7 @@ namespace Altivo
         MonthlyDashboardControl monthlyDashboard;
         MonthlyScoreHistoryControl monthlyScoreHistory;
         private NotifyIcon _notifyIcon;
-        private FloatingTimerWidget _floatingTimerWidget;
+        private FloatingTimerWidgetBase _floatingTimerWidget;
         private bool _isTimeUpHandled = false;
 
         private string _releasesUrl;
@@ -79,7 +79,7 @@ namespace Altivo
 
         private void InitializeFloatingTimerWidget()
         {
-            _floatingTimerWidget = new FloatingTimerWidget();
+            _floatingTimerWidget = new FloatingTimerWidgetCZ();
             _floatingTimerWidget.WidgetDoubleClicked += FloatingTimerWidget_WidgetDoubleClicked;
             _floatingTimerWidget.SetRemainingTime(0);
             _floatingTimerWidget.Hide();

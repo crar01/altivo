@@ -82,6 +82,12 @@
     <Compile Include="Forms\FloatingTimerWidget.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FloatingTimerWidgetBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FloatingTimerWidgetCZ.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FrmConcentrationRate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,9 +117,6 @@
     <Compile Include="Shared\ModeTimeLimits.cs" />
     <Compile Include="Shared\Utilities.cs" />
     <Compile Include="Time.cs" />
-    <EmbeddedResource Include="Forms\FloatingTimerWidget.resx">
-      <DependentUpon>FloatingTimerWidget.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmConcentrationRate.resx">
       <DependentUpon>FrmConcentrationRate.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,6 +153,8 @@
   <ItemGroup>
     <Content Include="Altivo.ico" />
     <Content Include="clock.ico" />
+    <None Include="Resources\fire.png" />
+    <None Include="Resources\clockcz.png" />
     <None Include="Resources\stop-button.png" />
     <None Include="Resources\bell-bell.png" />
     <None Include="Resources\Altivo-Photoroom.png" />

@@ -42,13 +42,13 @@
             this.lblLevelPoint = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalMinutesWeek = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pbInspiration = new System.Windows.Forms.PictureBox();
             this.btnChangeInspirationImage = new System.Windows.Forms.Button();
             this.btnResetInspirationImage = new System.Windows.Forms.Button();
-            this.pbControl = new System.Windows.Forms.PictureBox();
-            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
             this.lblNewVersionAvailable = new System.Windows.Forms.Label();
+            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbInspiration = new System.Windows.Forms.PictureBox();
+            this.pbControl = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInspiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
@@ -189,28 +189,6 @@
             this.lblTotalMinutesWeek.TabIndex = 13;
             this.lblTotalMinutesWeek.Text = "Total week: 0m";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Altivo.Properties.Resources.bell_bell;
-            this.pictureBox2.Location = new System.Drawing.Point(566, 52);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 21;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pbInspiration
-            // 
-            this.pbInspiration.Image = global::Altivo.Properties.Resources.Altivo_Photoroom;
-            this.pbInspiration.Location = new System.Drawing.Point(648, 0);
-            this.pbInspiration.Name = "pbInspiration";
-            this.pbInspiration.Size = new System.Drawing.Size(84, 89);
-            this.pbInspiration.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbInspiration.TabIndex = 14;
-            this.pbInspiration.TabStop = false;
-            this.pbInspiration.MouseEnter += new System.EventHandler(this.pbInspiration_MouseEnter);
-            this.pbInspiration.MouseLeave += new System.EventHandler(this.pbInspiration_MouseLeave);
-            // 
             // btnChangeInspirationImage
             // 
             this.btnChangeInspirationImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
@@ -249,17 +227,19 @@
             this.btnResetInspirationImage.MouseEnter += new System.EventHandler(this.InspirationButtons_MouseEnter);
             this.btnResetInspirationImage.MouseLeave += new System.EventHandler(this.InspirationButtons_MouseLeave);
             // 
-            // pbControl
+            // lblNewVersionAvailable
             // 
-            this.pbControl.BackColor = System.Drawing.Color.Transparent;
-            this.pbControl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbControl.Location = new System.Drawing.Point(528, 45);
-            this.pbControl.Name = "pbControl";
-            this.pbControl.Size = new System.Drawing.Size(32, 32);
-            this.pbControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbControl.TabIndex = 5;
-            this.pbControl.TabStop = false;
-            this.pbControl.Click += new System.EventHandler(this.btnControl_Click);
+            this.lblNewVersionAvailable.AutoSize = true;
+            this.lblNewVersionAvailable.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblNewVersionAvailable.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewVersionAvailable.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.lblNewVersionAvailable.Location = new System.Drawing.Point(606, 547);
+            this.lblNewVersionAvailable.Name = "lblNewVersionAvailable";
+            this.lblNewVersionAvailable.Size = new System.Drawing.Size(128, 16);
+            this.lblNewVersionAvailable.TabIndex = 23;
+            this.lblNewVersionAvailable.Text = "New version available";
+            this.lblNewVersionAvailable.Visible = false;
+            this.lblNewVersionAvailable.Click += new System.EventHandler(this.lblNewVersionAvailable_Click);
             // 
             // pbProgressTime
             // 
@@ -279,19 +259,39 @@
             this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
             this.pbProgressTime.Value = 0;
             // 
-            // lblNewVersionAvailable
+            // pictureBox2
             // 
-            this.lblNewVersionAvailable.AutoSize = true;
-            this.lblNewVersionAvailable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblNewVersionAvailable.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNewVersionAvailable.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.lblNewVersionAvailable.Location = new System.Drawing.Point(606, 547);
-            this.lblNewVersionAvailable.Name = "lblNewVersionAvailable";
-            this.lblNewVersionAvailable.Size = new System.Drawing.Size(128, 16);
-            this.lblNewVersionAvailable.TabIndex = 23;
-            this.lblNewVersionAvailable.Text = "New version available";
-            this.lblNewVersionAvailable.Visible = false;
-            this.lblNewVersionAvailable.Click += new System.EventHandler(this.lblNewVersionAvailable_Click);
+            this.pictureBox2.Image = global::Altivo.Properties.Resources.bell_bell;
+            this.pictureBox2.Location = new System.Drawing.Point(566, 52);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 21;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pbInspiration
+            // 
+            this.pbInspiration.Image = global::Altivo.Properties.Resources.Altivo_Photoroom;
+            this.pbInspiration.Location = new System.Drawing.Point(648, 0);
+            this.pbInspiration.Name = "pbInspiration";
+            this.pbInspiration.Size = new System.Drawing.Size(84, 89);
+            this.pbInspiration.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbInspiration.TabIndex = 14;
+            this.pbInspiration.TabStop = false;
+            this.pbInspiration.MouseEnter += new System.EventHandler(this.pbInspiration_MouseEnter);
+            this.pbInspiration.MouseLeave += new System.EventHandler(this.pbInspiration_MouseLeave);
+            // 
+            // pbControl
+            // 
+            this.pbControl.BackColor = System.Drawing.Color.Transparent;
+            this.pbControl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbControl.Location = new System.Drawing.Point(528, 45);
+            this.pbControl.Name = "pbControl";
+            this.pbControl.Size = new System.Drawing.Size(32, 32);
+            this.pbControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbControl.TabIndex = 5;
+            this.pbControl.TabStop = false;
+            this.pbControl.Click += new System.EventHandler(this.btnControl_Click);
             // 
             // frmMain
             // 
