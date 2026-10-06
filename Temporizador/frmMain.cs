@@ -120,7 +120,7 @@ namespace Altivo
                 var selectedWidget = Properties.Settings.Default.SelectedFloatingTimerWidget;
                 if (string.IsNullOrWhiteSpace(selectedWidget) || !WidgetRegistry.GetAllIds().Contains(selectedWidget, StringComparer.OrdinalIgnoreCase))
                 {
-                    selectedWidget = WidgetRegistry.CZ;
+                    selectedWidget = WidgetRegistry.GetDefaultWidgetId();
                     Properties.Settings.Default.SelectedFloatingTimerWidget = selectedWidget;
                     Properties.Settings.Default.Save();
                 }
