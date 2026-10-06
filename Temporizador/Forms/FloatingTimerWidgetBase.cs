@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -27,21 +28,100 @@ namespace Altivo
             ForeColor = Color.WhiteSmoke;
             Opacity = 0.93;
             Padding = new Padding(1);
+            // Improve rendering to avoid flicker
+            SetStyle(System.Windows.Forms.ControlStyles.UserPaint |
+                     System.Windows.Forms.ControlStyles.AllPaintingInWmPaint |
+                     System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer |
+                     System.Windows.Forms.ControlStyles.ResizeRedraw, true);
+            UpdateStyles();
+
             DoubleBuffered = true;
 
             MouseDown += Widget_MouseDown;
+
+            // Apply rounded region initially
+            UpdateRegion();
         }
 
-        public void SetRemainingTime(int remainingSeconds)
+        protected virtual int CornerRadius => 12;
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            UpdateRegion();
+        }
+
+        private void UpdateRegion()
+        {
+            try
+            {
+                if (ClientRectangle.Width > 0 && ClientRectangle.Height > 0)
+                {
+                    using (var path = CreateRoundedRectanglePath(ClientRectangle, CornerRadius))
+                    {
+                        Region = new Region(path);
+                    }
+                }
+            }
+            catch
+            {
+                // If region creation fails for some reason, ignore to avoid crashing the app
+            }
+        }
+
+        private GraphicsPath CreateRoundedRectanglePath(Rectangle rect, int radius)
+        {
+            var path = new GraphicsPath();
+            int diameter = radius * 2;
+
+            if (diameter > Math.Min(rect.Width, rect.Height)) diameter = Math.Min(rect.Width, rect.Height);
+
+            var arcRect = new Rectangle(rect.Location, new Size(diameter, diameter));
+
+            // top-left arc
+            path.AddArc(arcRect, 180, 90);
+
+            // top edge
+            arcRect.X = rect.Right - diameter;
+            path.AddArc(arcRect, 270, 90);
+
+            // right edge
+            arcRect.Y = rect.Bottom - diameter;
+            path.AddArc(arcRect, 0, 90);
+
+            // bottom edge
+            arcRect.X = rect.Left;
+            path.AddArc(arcRect, 90, 90);
+
+            path.CloseFigure();
+            return path;
+        }
+
+        // Prevent background erasure to reduce flicker; painting is done in OnPaint
+        protected override void OnPaintBackground(PaintEventArgs pevent)
+        {
+            // Intentionally empty to avoid flicker. Derived controls should paint entire background.
+        }
+
+        public void SetRemainingTime(int remainingSeconds, int? sessionTotalSeconds = null)
         {
             if (remainingSeconds < 0)
             {
                 remainingSeconds = 0;
             }
 
-            if (remainingSeconds > CurrentRemainingSeconds)
+            // If caller provides the session total explicitly, prefer it
+            if (sessionTotalSeconds.HasValue && sessionTotalSeconds.Value > 0)
             {
-                SessionTotalSeconds = remainingSeconds;
+                SessionTotalSeconds = sessionTotalSeconds.Value;
+            }
+            else
+            {
+                // Only update stored session total when this looks like a fresh session increase
+                if (remainingSeconds > SessionTotalSeconds)
+                {
+                    SessionTotalSeconds = remainingSeconds;
+                }
             }
 
             CurrentRemainingSeconds = remainingSeconds;

@@ -3,5 +3,9 @@
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
-  <Settings />
+  <Settings>
+    <Setting Name="SelectedFloatingTimerWidget" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CZ</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

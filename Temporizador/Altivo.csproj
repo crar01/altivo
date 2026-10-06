@@ -117,6 +117,7 @@
     <Compile Include="Shared\ModeTimeLimits.cs" />
     <Compile Include="Shared\Utilities.cs" />
     <Compile Include="Time.cs" />
+    <Compile Include="WidgetRegistry.cs" />
     <EmbeddedResource Include="Forms\FrmConcentrationRate.resx">
       <DependentUpon>FrmConcentrationRate.cs</DependentUpon>
     </EmbeddedResource>

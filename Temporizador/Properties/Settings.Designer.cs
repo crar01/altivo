@@ -22,5 +22,17 @@ namespace Altivo.Properties {
                 return defaultInstance;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CZ")]
+        public string SelectedFloatingTimerWidget {
+            get {
+                return ((string)(this["SelectedFloatingTimerWidget"]));
+            }
+            set {
+                this["SelectedFloatingTimerWidget"] = value;
+            }
+        }
     }
 }

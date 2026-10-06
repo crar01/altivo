@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -25,6 +26,7 @@ namespace Altivo
                 TextAlign = ContentAlignment.MiddleRight,
                 Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point),
                 ForeColor = Color.Gainsboro,
+                BackColor = Color.FromArgb(30, 30, 30), // opaque background to avoid transparent redraw flicker
                 Text = "0 min left"
             };
 
@@ -33,6 +35,17 @@ namespace Altivo
 
             WireMouseDown(_contentPanel);
             WireMouseDown(_timeLabel);
+
+            // Try to enable double buffering on the panel to reduce child-control flicker
+            try
+            {
+                var prop = typeof(Panel).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                prop?.SetValue(_contentPanel, true, null);
+            }
+            catch
+            {
+                // ignore if reflection fails
+            }
         }
 
         protected override void OnRemainingTimeChanged(int remainingSeconds)
@@ -46,14 +59,61 @@ namespace Altivo
         {
             base.OnPaint(e);
 
-            using (var pen = new Pen(Color.FromArgb(60, 60, 60)))
-            {
-                e.Graphics.DrawRectangle(pen, 0, 0, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-            }
+            // Use anti-aliasing for smoother rounded edges
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            using (var brush = new SolidBrush(Color.FromArgb(120, 214, 149)))
+            var rect = new Rectangle(0, 0, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            int radius = 12;
+
+            using (var path = new System.Drawing.Drawing2D.GraphicsPath())
             {
-                e.Graphics.FillRectangle(brush, 0, 0, 3, ClientRectangle.Height);
+                int diameter = radius * 2;
+                var arcRect = new Rectangle(rect.Location, new Size(diameter, diameter));
+
+                // top-left
+                path.AddArc(arcRect, 180, 90);
+                // top-right
+                arcRect.X = rect.Right - diameter;
+                path.AddArc(arcRect, 270, 90);
+                // bottom-right
+                arcRect.Y = rect.Bottom - diameter;
+                path.AddArc(arcRect, 0, 90);
+                // bottom-left
+                arcRect.X = rect.Left;
+                path.AddArc(arcRect, 90, 90);
+                path.CloseFigure();
+
+                using (var pen = new Pen(Color.FromArgb(60, 60, 60)))
+                {
+                    e.Graphics.DrawPath(pen, path);
+                }
+
+                using (var brush = new SolidBrush(Color.FromArgb(120, 214, 149)))
+                {
+                    // draw a thin rounded stripe on the left
+                    var stripeRect = new Rectangle(0, 0, 6, ClientRectangle.Height);
+                    using (var stripePath = new System.Drawing.Drawing2D.GraphicsPath())
+                    {
+                        int sRadius = Math.Max(0, radius - 4);
+                        int sDiameter = sRadius * 2;
+                        var sArc = new Rectangle(stripeRect.Location, new Size(sDiameter, sDiameter));
+
+                        // top-left
+                        stripePath.AddArc(sArc, 180, 90);
+                        // top-right
+                        sArc.X = stripeRect.Right - sDiameter;
+                        stripePath.AddArc(sArc, 270, 90);
+                        // bottom-right
+                        sArc.Y = stripeRect.Bottom - sDiameter;
+                        stripePath.AddArc(sArc, 0, 90);
+                        // bottom-left
+                        sArc.X = stripeRect.Left;
+                        stripePath.AddArc(sArc, 90, 90);
+                        stripePath.CloseFigure();
+
+                        e.Graphics.FillPath(brush, stripePath);
+                    }
+                }
             }
         }
     }

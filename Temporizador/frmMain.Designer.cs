@@ -34,6 +34,8 @@
             this.txtProgressTime = new System.Windows.Forms.TextBox();
             this.lblEndTime = new System.Windows.Forms.Label();
             this.lblModeMessage = new System.Windows.Forms.Label();
+            this.btnWidgetMenu = new System.Windows.Forms.Button();
+            this.cmsWidgetSelector = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.ckbSound = new System.Windows.Forms.CheckBox();
             this.ckbFloatingTimer = new System.Windows.Forms.CheckBox();
@@ -45,10 +47,10 @@
             this.btnChangeInspirationImage = new System.Windows.Forms.Button();
             this.btnResetInspirationImage = new System.Windows.Forms.Button();
             this.lblNewVersionAvailable = new System.Windows.Forms.Label();
-            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pbInspiration = new System.Windows.Forms.PictureBox();
             this.pbControl = new System.Windows.Forms.PictureBox();
+            this.pbProgressTime = new Altivo.Controls.ModernProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInspiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbControl)).BeginInit();
@@ -93,6 +95,31 @@
             this.lblModeMessage.TabIndex = 20;
             this.lblModeMessage.Text = " ";
             // 
+            // btnWidgetMenu
+            // 
+            this.btnWidgetMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.btnWidgetMenu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnWidgetMenu.FlatAppearance.BorderSize = 0;
+            this.btnWidgetMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWidgetMenu.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWidgetMenu.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnWidgetMenu.Location = new System.Drawing.Point(547, 14);
+            this.btnWidgetMenu.Name = "btnWidgetMenu";
+            this.btnWidgetMenu.Size = new System.Drawing.Size(28, 24);
+            this.btnWidgetMenu.TabIndex = 24;
+            this.btnWidgetMenu.Text = "...";
+            this.btnWidgetMenu.UseVisualStyleBackColor = false;
+            this.btnWidgetMenu.Visible = false;
+            this.btnWidgetMenu.Click += new System.EventHandler(this.btnWidgetMenu_Click);
+            this.btnWidgetMenu.MouseEnter += new System.EventHandler(this.WidgetSelector_MouseEnter);
+            this.btnWidgetMenu.MouseLeave += new System.EventHandler(this.WidgetSelector_MouseLeave);
+            // 
+            // cmsWidgetSelector
+            // 
+            this.cmsWidgetSelector.Name = "cmsWidgetSelector";
+            this.cmsWidgetSelector.ShowImageMargin = false;
+            this.cmsWidgetSelector.Size = new System.Drawing.Size(36, 4);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -108,6 +135,7 @@
             this.ckbSound.AutoSize = true;
             this.ckbSound.Checked = true;
             this.ckbSound.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbSound.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ckbSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ckbSound.Location = new System.Drawing.Point(583, 15);
             this.ckbSound.Name = "ckbSound";
@@ -119,14 +147,17 @@
             // ckbFloatingTimer
             // 
             this.ckbFloatingTimer.AutoSize = true;
+            this.ckbFloatingTimer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ckbFloatingTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbFloatingTimer.Location = new System.Drawing.Point(467, 15);
+            this.ckbFloatingTimer.Location = new System.Drawing.Point(440, 15);
             this.ckbFloatingTimer.Name = "ckbFloatingTimer";
             this.ckbFloatingTimer.Size = new System.Drawing.Size(110, 22);
             this.ckbFloatingTimer.TabIndex = 22;
             this.ckbFloatingTimer.Text = "Widget timer";
             this.ckbFloatingTimer.UseVisualStyleBackColor = true;
             this.ckbFloatingTimer.CheckedChanged += new System.EventHandler(this.ckbFloatingTimer_CheckedChanged);
+            this.ckbFloatingTimer.MouseEnter += new System.EventHandler(this.WidgetSelector_MouseEnter);
+            this.ckbFloatingTimer.MouseLeave += new System.EventHandler(this.WidgetSelector_MouseLeave);
             // 
             // label3
             // 
@@ -241,24 +272,6 @@
             this.lblNewVersionAvailable.Visible = false;
             this.lblNewVersionAvailable.Click += new System.EventHandler(this.lblNewVersionAvailable_Click);
             // 
-            // pbProgressTime
-            // 
-            this.pbProgressTime.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.pbProgressTime.CornerRadius = 4;
-            this.pbProgressTime.Location = new System.Drawing.Point(15, 50);
-            this.pbProgressTime.Margin = new System.Windows.Forms.Padding(4);
-            this.pbProgressTime.Maximum = 100;
-            this.pbProgressTime.Minimum = 0;
-            this.pbProgressTime.MinimumSize = new System.Drawing.Size(50, 20);
-            this.pbProgressTime.Name = "pbProgressTime";
-            this.pbProgressTime.PercentageFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.pbProgressTime.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(151)))), ((int)(((byte)(105)))));
-            this.pbProgressTime.ShowPercentage = false;
-            this.pbProgressTime.Size = new System.Drawing.Size(506, 27);
-            this.pbProgressTime.TabIndex = 0;
-            this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
-            this.pbProgressTime.Value = 0;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Altivo.Properties.Resources.bell_bell;
@@ -293,12 +306,31 @@
             this.pbControl.TabStop = false;
             this.pbControl.Click += new System.EventHandler(this.btnControl_Click);
             // 
+            // pbProgressTime
+            // 
+            this.pbProgressTime.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.pbProgressTime.CornerRadius = 4;
+            this.pbProgressTime.Location = new System.Drawing.Point(15, 50);
+            this.pbProgressTime.Margin = new System.Windows.Forms.Padding(4);
+            this.pbProgressTime.Maximum = 100;
+            this.pbProgressTime.Minimum = 0;
+            this.pbProgressTime.MinimumSize = new System.Drawing.Size(50, 20);
+            this.pbProgressTime.Name = "pbProgressTime";
+            this.pbProgressTime.PercentageFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.pbProgressTime.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(151)))), ((int)(((byte)(105)))));
+            this.pbProgressTime.ShowPercentage = false;
+            this.pbProgressTime.Size = new System.Drawing.Size(506, 27);
+            this.pbProgressTime.TabIndex = 0;
+            this.pbProgressTime.TextColor = System.Drawing.Color.WhiteSmoke;
+            this.pbProgressTime.Value = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(734, 561);
+            this.Controls.Add(this.btnWidgetMenu);
             this.Controls.Add(this.lblNewVersionAvailable);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnResetInspirationImage);
@@ -343,6 +375,8 @@
         private System.Windows.Forms.TextBox txtProgressTime;
         private System.Windows.Forms.Label lblEndTime;
         private System.Windows.Forms.Label lblModeMessage;
+        private System.Windows.Forms.Button btnWidgetMenu;
+        private System.Windows.Forms.ContextMenuStrip cmsWidgetSelector;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pbControl;
         private System.Windows.Forms.CheckBox ckbSound;

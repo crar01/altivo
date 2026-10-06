@@ -35,7 +35,9 @@ namespace Altivo
         MonthlyScoreHistoryControl monthlyScoreHistory;
         private NotifyIcon _notifyIcon;
         private FloatingTimerWidgetBase _floatingTimerWidget;
+        private bool _isWidgetSelectorLoading;
         private bool _isTimeUpHandled = false;
+        private bool _isWidgetMenuOpen = false;
 
         private string _releasesUrl;
         private readonly InspirationImageService _inspirationImageService = new InspirationImageService();
@@ -50,6 +52,7 @@ namespace Altivo
             CenterAtTopOfActiveMonitor();
 
             InitializeTrayIconAndControlImage();
+            InitializeFloatingTimerWidgetSelector();
             InitializeFloatingTimerWidget();
             LoadSavedInspirationImage();
 
@@ -79,15 +82,176 @@ namespace Altivo
 
         private void InitializeFloatingTimerWidget()
         {
-            _floatingTimerWidget = new FloatingTimerWidgetCZ();
+            if (_floatingTimerWidget != null)
+            {
+                _floatingTimerWidget.WidgetDoubleClicked -= FloatingTimerWidget_WidgetDoubleClicked;
+                _floatingTimerWidget.Close();
+                _floatingTimerWidget.Dispose();
+            }
+
+            _floatingTimerWidget = CreateFloatingTimerWidget(Properties.Settings.Default.SelectedFloatingTimerWidget);
             _floatingTimerWidget.WidgetDoubleClicked += FloatingTimerWidget_WidgetDoubleClicked;
             _floatingTimerWidget.SetRemainingTime(0);
             _floatingTimerWidget.Hide();
         }
 
+        private void InitializeFloatingTimerWidgetSelector()
+        {
+            _isWidgetSelectorLoading = true;
+
+            // Populate context menu with available widgets (button '...' will show it)
+            try
+            {
+                cmsWidgetSelector.Items.Clear();
+
+                foreach (var id in WidgetRegistry.GetAllIds())
+                {
+                    var menuItem = new ToolStripMenuItem(WidgetRegistry.GetDisplayName(id)) { Tag = id };
+                    menuItem.Click += FloatingTimerWidgetMenuItem_Click;
+                    cmsWidgetSelector.Items.Add(menuItem);
+                }
+
+                // handle menu open/close so UI behaves correctly while menu is shown
+                cmsWidgetSelector.Opening -= CmsWidgetSelector_Opening;
+                cmsWidgetSelector.Opening += CmsWidgetSelector_Opening;
+                cmsWidgetSelector.Closed -= CmsWidgetSelector_Closed;
+                cmsWidgetSelector.Closed += CmsWidgetSelector_Closed;
+
+                var selectedWidget = Properties.Settings.Default.SelectedFloatingTimerWidget;
+                if (string.IsNullOrWhiteSpace(selectedWidget) || !WidgetRegistry.GetAllIds().Contains(selectedWidget, StringComparer.OrdinalIgnoreCase))
+                {
+                    selectedWidget = WidgetRegistry.CZ;
+                    Properties.Settings.Default.SelectedFloatingTimerWidget = selectedWidget;
+                    Properties.Settings.Default.Save();
+                }
+
+                UpdateWidgetMenuSelection(selectedWidget);
+            }
+            catch
+            {
+                // ignore UI population errors
+            }
+
+            _isWidgetSelectorLoading = false;
+        }
+
+        private FloatingTimerWidgetBase CreateFloatingTimerWidget(string widgetId)
+        {
+            return WidgetRegistry.CreateWidget(widgetId);
+        }
+
+        private void FloatingTimerWidgetMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_isWidgetSelectorLoading) return;
+
+            if (sender is ToolStripMenuItem item)
+            {
+                var selectedWidget = (item.Tag?.ToString()) ?? item.Text;
+                if (Properties.Settings.Default.SelectedFloatingTimerWidget == selectedWidget)
+                {
+                    return;
+                }
+
+                Properties.Settings.Default.SelectedFloatingTimerWidget = selectedWidget;
+                Properties.Settings.Default.Save();
+
+                UpdateWidgetMenuSelection(selectedWidget);
+
+                InitializeFloatingTimerWidget();
+                UpdateFloatingTimerWidget();
+            }
+        }
+
+        private void UpdateWidgetMenuSelection(string selectedWidget)
+        {
+            try
+            {
+                // Update context menu checked state by prefixing the selected item with a checkmark symbol
+                foreach (ToolStripItem di in cmsWidgetSelector.Items)
+                {
+                    if (di is ToolStripMenuItem mi)
+                    {
+                        var id = mi.Tag?.ToString() ?? string.Empty;
+                        var display = WidgetRegistry.GetDisplayName(id);
+                        if (string.Equals(id, selectedWidget, StringComparison.OrdinalIgnoreCase))
+                        {
+                            mi.Text = "✔ " + display;
+                        }
+                        else
+                        {
+                            mi.Text = display;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private void btnWidgetMenu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Guard against null references
+                if (cmsWidgetSelector == null || btnWidgetMenu == null) return;
+
+                // Nothing to show
+                if (cmsWidgetSelector.Items.Count == 0) return;
+
+                // Try to show the context menu just below the button.
+                // Use the overload that anchors to the owner control so placement is handled correctly.
+                cmsWidgetSelector.Show(btnWidgetMenu, new Point(0, btnWidgetMenu.Height));
+            }
+            catch
+            {
+                // ignore UI/show errors
+            }
+        }
+
+        private void SetWidgetSelectorVisible(bool visible)
+        {
+            btnWidgetMenu.Visible = visible;
+        }
+
+        private void HideWidgetSelectorIfNeeded()
+        {
+            var p = PointToClient(Cursor.Position);
+            if (ckbFloatingTimer.Bounds.Contains(p) || btnWidgetMenu.Bounds.Contains(p))
+                return;
+
+            SetWidgetSelectorVisible(false);
+        }
+
         private void FloatingTimerWidget_WidgetDoubleClicked(object sender, EventArgs e)
         {
             RestoreWindowFromNotification();
+        }
+
+        private void WidgetSelector_MouseEnter(object sender, EventArgs e) => SetWidgetSelectorVisible(true);
+
+        private void WidgetSelector_MouseLeave(object sender, EventArgs e) => BeginInvoke(new Action(HideWidgetSelectorIfNeeded));
+
+        private void CmsWidgetSelector_Opening(object sender, CancelEventArgs e)
+        {
+            _isWidgetMenuOpen = true;
+            // keep the button visible while the menu is open
+            try { btnWidgetMenu.Visible = true; } catch { }
+        }
+
+        private void CmsWidgetSelector_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            // menu closed: clear open flag and hide the button
+            _isWidgetMenuOpen = false;
+            try
+            {
+                SetWidgetSelectorVisible(false);
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private void UpdateFloatingTimerWidget()
@@ -103,17 +267,21 @@ namespace Altivo
                 return;
             }
 
-            _floatingTimerWidget.SetRemainingTime(pbProgressTime.Value);
+            _floatingTimerWidget.SetRemainingTime(pbProgressTime.Value, time.TotalTimeInSeconds);
 
             if (time.IsRunningTime || time.IsPaused || time.IsTimeUp)
             {
-                if (!_floatingTimerWidget.Visible)
+                // If the widget selection menu is open, avoid forcing the floating widget to show or take focus
+                if (!_isWidgetMenuOpen)
                 {
-                    _floatingTimerWidget.ShowNearOwner(this);
-                }
-                else
-                {
-                    _floatingTimerWidget.BringToFront();
+                    if (!_floatingTimerWidget.Visible)
+                    {
+                        _floatingTimerWidget.ShowNearOwner(this);
+                    }
+                    else
+                    {
+                        _floatingTimerWidget.BringToFront();
+                    }
                 }
 
                 return;
